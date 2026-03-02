@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servicios Detallados - APEMAR</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        (function() {
+            try {
+                if ('scrollRestoration' in history) {
+                    history.scrollRestoration = 'manual';
+                }
+                var params = new URLSearchParams(window.location.search);
+                var servicio = params.get('servicio');
+                if (servicio) {
+                    sessionStorage.setItem('apemar_selected_service', servicio);
+                    window.scrollTo(0, 0);
+                    return;
+                }
+
+                if (window.location.hash) {
+                    var id = window.location.hash.slice(1);
+                    if (id) {
+                        sessionStorage.setItem('apemar_selected_service', id);
+                    }
+                    history.replaceState(null, document.title, window.location.pathname + window.location.search);
+                    window.scrollTo(0, 0);
+                }
+            } catch (e) {
+                // noop
+            }
+        })();
+    </script>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <img src="apemar-logo.png" alt="APEMAR Logo" class="h-8 w-auto mr-2">
+                        <span class="text-xl font-bold text-gray-800">APEMAR</span>
+                    </div>
+                    <div class="hidden md:ml-6 md:flex md:space-x-8">
+                        <a href="index.html" class="nav-link text-gray-700 hover:text-green-600 px-3 py-2 text-sm font-medium">Inicio</a>
+                        <a href="index.html#servicios" class="nav-link text-gray-700 hover:text-green-600 px-3 py-2 text-sm font-medium">Servicios</a>
+                        <a href="index.html#nosotros" class="nav-link text-gray-700 hover:text-green-600 px-3 py-2 text-sm font-medium">Nosotros</a>
+                        <a href="index.html#contacto" class="nav-link text-gray-700 hover:text-green-600 px-3 py-2 text-sm font-medium">Contacto</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="gradient-bg text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4">Nuestros Servicios Detallados</h1>
+                <p class="text-xl max-w-3xl mx-auto">
+                    Conoce en profundidad cada una de nuestras 9 áreas especializadas de atención integral
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Detail Section -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-10">
+                <button type="button" id="backButton" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition transform hover:scale-105 hover:shadow-lg active:scale-95 btn-exit-animation">
+                    <i class="fas fa-arrow-left mr-2"></i>
+                    Salir
+                </button>
+            </div>
+            
+            <!-- Adaptación y Acogida -->
+            <div class="service-section mb-16" id="adaptacion">
+                <div class="bg-gray-50 rounded-2xl p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="text-green-600 mr-4">
+                            <i class="fas fa-home text-3xl"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-gray-800">Adaptación y Acogida</h2>
+                    </div>
+                    
+                    <div class="mb-8 service-intro">
+                        <p class="text-gray-600 mb-4">
+                            El proceso de adaptación es fundamental para garantizar el bienestar y la integración exitosa de nuestros residentes. 
+                            Entendemos que cada persona necesita un tiempo y un acompañamiento especial para sentirse 
+                            cómoda y segura en su nuevo hogar.
+                        </p>
+                        <p class="text-gray-600">
+                            Nuestro programa de acogida está diseñado para facilitar una transición suave y positiva, 
+                            considerando tanto las necesidades individuales como la dinámica familiar. Trabajamos en estrecha 
+                            colaboración con las familias para mantener la coherencia entre los hábitos del centro y los del hogar.
+                        </p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 service-columns">
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                                <i class="fas fa-heart text-green-600 mr-2"></i>
+                                Necesidades que atendemos
+                            </h3>
+                            <ul class="space-y-2 text-gray-600">
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Comprender horarios y dinámicas del centro</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Sentirse acogido/a y reconocido/a por profesionales</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Establecer vínculos de confianza con el equipo</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Coordinar rutinas del centro con las de casa</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Reducir ansiedad o inseguridad ante cambios</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Adaptarse a espacios, normas y actividades</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Recibir información clara sobre servicios</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Mantener contacto y participación familiar</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                                <i class="fas fa-bullseye text-green-600 mr-2"></i>
+                                Objetivos que perseguimos
+                            </h3>
+                            <ul class="space-y-2 text-gray-600">
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Facilitar adaptación progresiva y positiva</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Promover integración en actividades y grupos</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Potenciar sentimiento de pertenencia y confianza</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Reforzar comunicación con la familia</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Detectar precozmente dificultades de adaptación</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Coordinar hábitos centro-casa</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Mejorar seguridad emocional</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Potenciar autonomía y participación diaria</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                                <i class="fas fa-cogs text-green-600 mr-2"></i>
+                                Acciones que realizamos
+                            </h3>
+                            <ul class="space-y-2 text-gray-600">
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Entrevista inicial con persona y familia</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Asignación de profesional de referencia</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Plan de acogida individualizado con seguimiento</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Presentación progresiva de espacios y actividades</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Actividades grupales de conocimiento e integración</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Coordinación familiar para rutinas diarias</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Observación constante del estado emocional</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Reuniones de valoración periódicas</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <details class="mt-8 p-6 bg-green-50 rounded-xl">
+                        <summary class="font-semibold text-gray-800 flex items-center cursor-pointer hover:text-green-600">
+                            <i class="fas fa-info-circle text-green-600 mr-2"></i>
+                            Información adicional
+                        </summary>
+                        <div class="mt-3 text-gray-600">
+                            El período de adaptación suele durar entre 2 y 4 semanas, durante las cuales realizamos un seguimiento 
+                            intensivo tanto de la persona como de su familia. Cada residente cuenta con un profesional de referencia 
+                            que actúa como punto de contacto principal para resolver cualquier duda o inquietud.
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Área Emocional y Psicológica -->
+            <div class="service-section mb-16" id="emocional">
+                <div class="bg-gray-50 rounded-2xl p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="text-green-600 mr-4">
+                            <i class="fas fa-heart text-3xl"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-gray-800">Área Emocional y Psicológica</h2>
+                    </div>
+                    
+                    <div class="mb-8 service-intro">
+                        <p class="text-gray-600 mb-4">
+                            El bienestar emocional y psicológico es fundamental para una calidad de vida plena en personas mayores. 
+                            Nuestro enfoque integral aborda tanto las necesidades emocionales individuales como la salud mental general, 
+                            proporcionando un entorno seguro donde cada persona puede expresar sus sentimientos y encontrar apoyo.
+                        </p>
+                        <p class="text-gray-600">
+                            Trabajamos para mantener y fortalecer la autoestima, gestionar adecuadamente las emociones 
+                            y proporcionar herramientas para enfrentar los desafíos propios de esta etapa de la vida. 
+                            La coherencia entre el centro y el hogar es clave para el bienestar emocional continuo.
+                        </p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 service-columns">
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                                <i class="fas fa-heart text-green-600 mr-2"></i>
+                                Necesidades que atendemos
+                            </h3>
+                            <ul class="space-y-2 text-gray-600">
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Expresar libremente emociones y sentimientos</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Recibir apoyo en ansiedad, dolor o pérdida</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Mantener autoestima y sentimiento de utilidad</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Sentirse escuchado/a y respetado/a</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Reforzar seguridad personal y control de vida</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Reducir la soledad emocional</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Mantener actitud positiva ante cambios</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Garantizar coherencia emocional centro-casa</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                                <i class="fas fa-bullseye text-green-600 mr-2"></i>
+                                Objetivos que perseguimos
+                            </h3>
+                            <ul class="space-y-2 text-gray-600">
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Potenciar estabilidad emocional y bienestar</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Mejorar capacidad de expresar y gestionar emociones</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Fortalecer autoestima e identidad personal</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Favorecer relaciones de confianza</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Detectar y intervenir precozmente en malestar</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Promover participación activa en decisiones</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Coordinar estrategias emocionales con familia</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Reforzar estado de ánimo con actividades</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                                <i class="fas fa-cogs text-green-600 mr-2"></i>
+                                Acciones que realizamos
+                            </h3>
+                            <ul class="space-y-2 text-gray-600">
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Sesiones individuales de apoyo emocional</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Actividades de reminiscencia y validación</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Dinámicas grupales para autoestima y confianza</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Incorporación de actividades significativas</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Coordinación con familia para apoyo emocional</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Seguimiento de apatía, irritabilidad o tristeza</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Intervención en momentos de dolor o cambio</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Espacios diarios de motivación y buen humor</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <details class="mt-8 p-6 bg-green-50 rounded-xl">
+                        <summary class="font-semibold text-gray-800 flex items-center cursor-pointer">
+                            <i class="fas fa-info-circle text-green-600 mr-2"></i>
+                            Información adicional
+                        </summary>
+                        <div class="mt-3 text-gray-600">
+                            Contamos con personal especializado en psicología geriátrica que realiza evaluaciones periódicas 
+                            del estado emocional. Las sesiones de apoyo se adaptan a las necesidades individuales y pueden 
+                            incluir terapia reminiscencia, musicoterapia, arteterapia y otras intervenciones terapéuticas 
+                            complementarias que promueven el bienestar emocional.
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Estimulación Cognitiva -->
+            <div class="service-section mb-16" id="cognitiva">
+                <div class="bg-gray-50 rounded-2xl p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="text-green-600 mr-4">
+                            <i class="fas fa-brain text-3xl"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-gray-800">Estimulación Cognitiva</h2>
+                    </div>
+                    
+                    <div class="mb-8 service-intro">
+                        <p class="text-gray-600 mb-4">
+                            La estimulación cognitiva es fundamental para mantener activas las funciones mentales y retrasar 
+                            el deterioro cognitivo. Nuestro programa integral abarca memoria, atención, lenguaje, orientación 
+                            y razonamiento, adaptando cada actividad a las capacidades individuales de cada residente.
+                        </p>
+                        <p class="text-gray-600">
+                            Trabajamos de manera sistemática y diaria para preservar y estimular las capacidades cognitivas, 
+                            fomentando la autonomía en la toma de decisiones y manteniendo la conexión con la realidad. 
+                            La coordinación con la familia asegura la continuidad de los ejercicios cognitivos en el domicilio.
+                        </p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 service-columns">
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                                <i class="fas fa-heart text-green-600 mr-2"></i>
+                                Necesidades que atendemos
+                            </h3>
+                            <ul class="space-y-2 text-gray-600">
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Estimulación cognitiva diaria adaptada</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Evitar desconexión con la realidad</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Mantener memoria, atención y orientación</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Prevenir deterioro cognitivo acelerado</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Coordinar ejercicios con familia</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Favorecer autonomía en toma de decisiones</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Mantener capacidad de lenguaje y comunicación</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Estimular razonamiento y resolución de problemas</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                                <i class="fas fa-bullseye text-green-600 mr-2"></i>
+                                Objetivos que perseguimos
+                            </h3>
+                            <ul class="space-y-2 text-gray-600">
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Preservar y estimular funciones cognitivas</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Mantener orientación temporal, espacial y personal</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Potenciar participación activa en actividades mentales</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Retardar deterioro cognitivo</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Fomentar autonomía cognitiva en actividades diarias</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Facilitar transferencia de rutinas cognitivas a casa</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Detectar cambios cognitivos para actuación precoz</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Mejorar autoestima a través de éxitos cognitivos</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                                <i class="fas fa-cogs text-green-600 mr-2"></i>
+                                Acciones que realizamos
+                            </h3>
+                            <ul class="space-y-2 text-gray-600">
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Talleres diarios de estimulación cognitiva</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Ejercicios de atención, cálculo, memoria y lenguaje</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Orientación a la realidad con calendarios y soportes visuales</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Lectura de noticias, debate o tertulias guiadas</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Juegos de mesa y actividades lúdicas con razonamiento</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Coordinación con familia para ejercicios a domicilio</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Seguimiento periódico del rendimiento cognitivo</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Refuerzo positivo de los éxitos cognitivos</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <details class="mt-8 p-6 bg-green-50 rounded-xl">
+                        <summary class="font-semibold text-gray-800 flex items-center cursor-pointer">
+                            <i class="fas fa-info-circle text-green-600 mr-2"></i>
+                            Información adicional
+                        </summary>
+                        <div class="mt-3 text-gray-600">
+                            Contamos con neuropsicólogos y terapeutas ocupacionales especializados en estimulación cognitiva. 
+                            Las sesiones diarias de 45 minutos incluyen ejercicios personalizados según el nivel cognitivo 
+                            de cada residente. Realizamos evaluaciones trimestrales para ajustar los programas y mantener 
+                            la efectividad de las intervenciones.
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Área Física y Funcional -->
+            <div class="service-section mb-16" id="fisica">
+                <div class="bg-gray-50 rounded-2xl p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="text-green-600 mr-4">
+                            <i class="fas fa-running text-3xl"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-gray-800">Área Física y Funcional</h2>
+                    </div>
+                    
+                    <div class="mb-8 service-intro">
+                        <p class="text-gray-600 mb-4">
+                            La capacidad física y funcional es esencial para mantener la independencia y calidad de vida. 
+                            Nuestro programa integral está diseñado para preservar y mejorar la movilidad, fuerza y equilibrio 
+                            mediante ejercicios adaptados y supervisados por profesionales especializados.
+                        </p>
+                        <p class="text-gray-600">
+                            Trabajamos de manera proactiva en la prevención de caídas y lesiones, adaptando todas las actividades 
+                            a las capacidades individuales de cada residente. La coordinación entre el centro y el domicilio asegura 
+                            la continuidad de los hábitos activos y el mantenimiento de la autonomía en las actividades de la vida diaria.
+                        </p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 service-columns">
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                                <i class="fas fa-heart text-green-600 mr-2"></i>
+                                Necesidades que atendemos
+                            </h3>
+                            <ul class="space-y-2 text-gray-600">
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Mantener movilidad y fuerza muscular</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Evitar dependencia funcional progresiva</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Prevenir caídas y lesiones accidentales</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Adaptar actividades a capacidades individuales</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Reforzar hábitos activos en domicilio</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Mantener coordinación y equilibrio</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Promover autonomía en AVD (Actividades Vida Diaria)</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Garantizar seguridad en traslados y espacios</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                                <i class="fas fa-bullseye text-green-600 mr-2"></i>
+                                Objetivos que perseguimos
+                            </h3>
+                            <ul class="space-y-2 text-gray-600">
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Preservar independencia en AVD</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Mejorar equilibrio y coordinación</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Favorecer participación activa en actividades físicas</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Reducir riesgo de caídas y accidentes</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Coordinar ejercicios entre centro y domicilio</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Potenciar fuerza, resistencia y flexibilidad</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Fomentar uso adecuado de ayudas técnicas</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Detectar y corregir hábitos posturales inadecuados</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                                <i class="fas fa-cogs text-green-600 mr-2"></i>
+                                Acciones que realizamos
+                            </h3>
+                            <ul class="space-y-2 text-gray-600">
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Sesión diaria de gimnasia suave y psicomotricidad</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Entrenamiento en transferencias y movilidad</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Ejercicios de fuerza y equilibrio adaptados</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Supervisión de desplazamientos dentro del centro</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Recomendaciones de ejercicios sencillos para casa</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Adaptación de espacios para seguridad</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Observación y registro de capacidades funcionales</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Refuerzo positivo de la participación y autonomía</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <details class="mt-8 p-6 bg-green-50 rounded-xl">
+                        <summary class="font-semibold text-gray-800 flex items-center cursor-pointer">
+                            <i class="fas fa-info-circle text-green-600 mr-2"></i>
+                            Información adicional
+                        </summary>
+                        <div class="mt-3 text-gray-600">
+                            Contamos con fisioterapeutas y terapeutas ocupacionales especializados que diseñan programas 
+                            individualizados. Las sesiones diarias de 30-45 minutos incluyen ejercicios de bajo impacto, 
+                            estiramientos y actividades de coordinación. Realizamos evaluaciones funcionales mensuales 
+                            para ajustar los programas según las necesidades cambiantes de cada residente.
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Higiene Personal e Imagen -->
+            <div class="service-section mb-16" id="higiene">
+                <div class="bg-gray-50 rounded-2xl p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="text-green-600 mr-4">
+                            <i class="fas fa-shower text-3xl"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-gray-800">Higiene Personal e Imagen</h2>
+                    </div>
+                    
+                    <div class="mb-8 service-intro">
+                        <p class="text-gray-600 mb-4">
+                            La higiene personal y el cuidado de la imagen son fundamentales para mantener la dignidad, 
+                            autoestima y salud de nuestros residentes. Nuestro enfoque respetuoso garantiza la intimidad 
+                            mientras proporciona el apoyo necesario para mantener hábitos de higiene adecuados y seguros.
+                        </p>
+                        <p class="text-gray-600">
+                            Trabajamos coordinadamente con las familias para mantener las rutinas de higiene establecidas, 
+                            adaptando los apoyos según las capacidades individuales y promoviendo la máxima autonomía posible. 
+                            El confort y el bienestar durante los cuidados son prioritarios en cada intervención.
+                        </p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 service-columns">
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                                <i class="fas fa-heart text-green-600 mr-2"></i>
+                                Necesidades que atendemos
+                            </h3>
+                            <ul class="space-y-2 text-gray-600">
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Recibir apoyo respetuoso en higiene diaria</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Preservar intimidad y dignidad personal</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Mantener imagen personal y autocuidado</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Coordinar rutinas con la familia</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Reforzar autonomía en AVD de higiene</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Recibir orientación sobre productos y técnicas</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Evitar infecciones y problemas cutáneos</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Favorecer placer y confort en el cuidado</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                                <i class="fas fa-bullseye text-green-600 mr-2"></i>
+                                Objetivos que perseguimos
+                            </h3>
+                            <ul class="space-y-2 text-gray-600">
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Mantener higiene e imagen personal adecuada</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Fomentar participación activa en el cuidado personal</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Reforzar autonomía en actividades de vida diaria</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Coordinar pautas de higiene centro-casa</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Garantizar seguridad y salud cutánea</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Promover confort y bienestar durante la higiene</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Favorecer autoestima a través de la imagen personal</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Estimular hábitos de autocuidado sostenibles</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                                <i class="fas fa-cogs text-green-600 mr-2"></i>
+                                Acciones que realizamos
+                            </h3>
+                            <ul class="space-y-2 text-gray-600">
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Apoyo parcial o total en higiene diaria</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Supervisión de manos, uñas e higiene bucal</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Refuerzo positivo de participación y autonomía</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Orientación sobre técnicas y productos de higiene</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Coordinación con familia para mantener rutinas</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Adaptación de baños y espacios según necesidades</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Programación de rutinas según preferencias</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Observación de signos de problemas cutáneos o infecciones</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <details class="mt-8 p-6 bg-green-50 rounded-xl">
+                        <summary class="font-semibold text-gray-800 flex items-center cursor-pointer">
+                            <i class="fas fa-info-circle text-green-600 mr-2"></i>
+                            Información adicional
+                        </summary>
+                        <div class="mt-3 text-gray-600">
+                            Contamos con personal auxiliar de enfermería especializado en cuidados de higiene geriátrica. 
+                            Los baños están adaptados con elementos de seguridad y los productos de higiene son hipoalergénicos. 
+                            Realizamos evaluaciones dermatológicas periódicas para prevenir problemas cutáneos y garantizar 
+                            el bienestar integral de cada residente.
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Área Social y Relacional -->
+            <div class="service-section mb-16" id="social">
+                <div class="bg-gray-50 rounded-2xl p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="text-green-600 mr-4">
+                            <i class="fas fa-users text-3xl"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-gray-800">Área Social y Relacional</h2>
+                    </div>
+                    
+                    <div class="mb-8 service-intro">
+                        <p class="text-gray-600 mb-4">
+                            Mantener una vida social activa y relaciones significativas mejora el estado de ánimo, 
+                            reduce la sensación de soledad y favorece la participación en la vida del centro. 
+                            En APEMAR creamos un entorno cálido y cercano donde se fortalecen los vínculos y se promueve 
+                            la convivencia positiva.
+                        </p>
+                        <p class="text-gray-600">
+                            Trabajamos la integración social dentro del centro y también el contacto con la comunidad 
+                            externa, impulsando actividades compartidas, celebraciones e iniciativas intergeneracionales. 
+                            La coordinación con la familia es constante para sostener una red de apoyo estable.
+                        </p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 service-columns">
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                                <i class="fas fa-heart text-green-600 mr-2"></i>
+                                Necesidades que atendemos
+                            </h3>
+                            <ul class="space-y-2 text-gray-600">
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Mantener vínculos familiares y sociales</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Participar en actividades grupales</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Evitar aislamiento o sentimientos de soledad</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Fomentar comunicación e interacción positiva</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Coordinar actividades sociales con la familia</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Desarrollar habilidades de convivencia y cooperación</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Establecer relaciones de confianza con profesionales</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Participar en la comunidad y en actividades intergeneracionales</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                                <i class="fas fa-bullseye text-green-600 mr-2"></i>
+                                Objetivos que perseguimos
+                            </h3>
+                            <ul class="space-y-2 text-gray-600">
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Favorecer la integración social dentro del centro</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Reforzar la red de relaciones y el sentido de pertenencia</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Mejorar habilidades comunicativas y de convivencia</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Promover relaciones positivas y respetuosas</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Coordinar actividades sociales centro-familia</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Reducir aislamiento y soledad</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Potenciar participación en eventos y celebraciones</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Fomentar la interacción con la comunidad externa</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                                <i class="fas fa-cogs text-green-600 mr-2"></i>
+                                Acciones que realizamos
+                            </h3>
+                            <ul class="space-y-2 text-gray-600">
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Organización de actividades grupales y talleres sociales</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Dinámicas de grupo para fomentar cooperación y confianza</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Contacto periódico con la familia sobre participación social</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Celebración de aniversarios, fiestas y actividades intergeneracionales</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Mediación en conflictos entre residentes</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Creación de grupos de apoyo emocional y relacional</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Actividades de voluntariado e intercambio con la comunidad</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Fomento de visitas y comunicación con amigos y familiares</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <details class="mt-8 p-6 bg-green-50 rounded-xl">
+                        <summary class="font-semibold text-gray-800 flex items-center cursor-pointer">
+                            <i class="fas fa-info-circle text-green-600 mr-2"></i>
+                            Información adicional
+                        </summary>
+                        <div class="mt-3 text-gray-600">
+                            Nuestro equipo dinamiza las relaciones y la convivencia, detectando señales de aislamiento, 
+                            favoreciendo la participación y adaptando actividades para que cada persona encuentre su lugar. 
+                            Las celebraciones y actividades comunitarias se planifican a lo largo del año para mantener un 
+                            calendario social activo y motivador.
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Área Lúdica y Ocupacional -->
+            <div class="service-section mb-16" id="ludica">
+                <div class="bg-gray-50 rounded-2xl p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="text-green-600 mr-4">
+                            <i class="fas fa-gamepad text-3xl"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-gray-800">Área Lúdica y Ocupacional</h2>
+                    </div>
+                    
+                    <div class="mb-8 service-intro">
+                        <p class="text-gray-600 mb-4">
+                            Las actividades lúdicas y ocupacionales ayudan a mantener la motivación, estimular la creatividad 
+                            y reforzar la identidad personal. En APEMAR proponemos actividades significativas y gratificantes 
+                            que conectan con la historia de vida, las aficiones y los intereses de cada residente.
+                        </p>
+                        <p class="text-gray-600">
+                            Adaptamos cada propuesta a las capacidades y preferencias individuales, buscando siempre un equilibrio 
+                            entre disfrute y reto. Además, coordinamos con las familias para que algunas actividades puedan 
+                            continuar en casa, fortaleciendo los vínculos y la continuidad del ocio.
+                        </p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 service-columns">
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                                <i class="fas fa-heart text-green-600 mr-2"></i>
+                                Necesidades que atendemos
+                            </h3>
+                            <ul class="space-y-2 text-gray-600">
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Participar en actividades significativas y gratificantes</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Mantener motivación e interés en el ocio</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Evitar apatía e inactividad</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Coordinar actividades con la familia según intereses</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Desarrollar creatividad y expresión personal</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Fomentar autonomía en actividades de ocio</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Adaptar actividades a capacidades y preferencias</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Reforzar la historia de vida y aficiones personales</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                                <i class="fas fa-bullseye text-green-600 mr-2"></i>
+                                Objetivos que perseguimos
+                            </h3>
+                            <ul class="space-y-2 text-gray-600">
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Promover disfrute, creatividad y motivación</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Fomentar participación activa en actividades lúdicas</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Potenciar autoexpresión y satisfacción personal</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Coordinar actividades de ocio con familia y entorno</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Desarrollar habilidades prácticas y manuales</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Prevenir apatía y desconexión social</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Favorecer intercambio y cooperación entre residentes</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Adaptar actividades manteniendo el reto adecuado</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                                <i class="fas fa-cogs text-green-600 mr-2"></i>
+                                Acciones que realizamos
+                            </h3>
+                            <ul class="space-y-2 text-gray-600">
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Talleres de música, manualidades, jardinería, cocina y lectura</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Juegos de mesa (dominó, cartas) y actividades grupales</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Actividades basadas en intereses e historia de vida</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Propuestas lúdicas para continuar en casa con la familia</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Exhibición de trabajos o creaciones en el centro</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Dinamización de grupos con acompañamiento individualizado</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Sesiones de psicomotricidad lúdica</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Incorporación de actividades intergeneracionales o comunitarias</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <details class="mt-8 p-6 bg-green-50 rounded-xl">
+                        <summary class="font-semibold text-gray-800 flex items-center cursor-pointer">
+                            <i class="fas fa-info-circle text-green-600 mr-2"></i>
+                            Información adicional
+                        </summary>
+                        <div class="mt-3 text-gray-600">
+                            Las actividades se planifican semanalmente y se ajustan según el estado físico y emocional. 
+                            Buscamos que cada residente tenga opciones variadas: creatividad, estimulación, socialización 
+                            y ocupación con sentido. También promovemos espacios donde compartir recuerdos y aficiones 
+                            para reforzar la identidad y la autoestima.
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Área Espiritual y Valores -->
+            <div class="service-section mb-16" id="espiritual">
+                <div class="bg-gray-50 rounded-2xl p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="text-green-600 mr-4">
+                            <i class="fas fa-pray text-3xl"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-gray-800">Área Espiritual y Valores</h2>
+                    </div>
+                    
+                    <div class="mb-8 service-intro">
+                        <p class="text-gray-600 mb-4">
+                            La dimensión espiritual y los valores personales aportan sentido, serenidad y bienestar emocional. 
+                            En APEMAR respetamos las creencias, tradiciones y la identidad de cada persona, facilitando espacios 
+                            de reflexión y apoyo cuando lo necesita.
+                        </p>
+                        <p class="text-gray-600">
+                            Acompañamos especialmente en momentos de duelo o pérdida, favoreciendo un entorno de respeto 
+                            y contención emocional. Coordinamos con la familia para mantener la coherencia entre el centro 
+                            y el domicilio en lo relacionado con creencias y prácticas personales.
+                        </p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 service-columns">
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                                <i class="fas fa-heart text-green-600 mr-2"></i>
+                                Necesidades que atendemos
+                            </h3>
+                            <ul class="space-y-2 text-gray-600">
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Expresar creencias, valores y espiritualidad</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Acceder a prácticas religiosas según preferencia</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Participar en rituales o celebraciones significativas</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Recibir apoyo en momentos de duelo o pérdida</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Coordinar actividades espirituales con la familia</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Respetar y mantener tradiciones personales</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Disponer de espacios tranquilos para meditación o reflexión</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Mantener coherencia entre creencias en centro y domicilio</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                                <i class="fas fa-bullseye text-green-600 mr-2"></i>
+                                Objetivos que perseguimos
+                            </h3>
+                            <ul class="space-y-2 text-gray-600">
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Facilitar la expresión libre de valores y creencias</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Garantizar acceso a actividades religiosas según preferencia</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Favorecer bienestar espiritual y emocional</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Coordinar actividades con familia y entorno</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Respetar identidad y tradiciones personales</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Promover momentos de reflexión y serenidad</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Acompañar procesos de duelo o pérdida</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Integrar espiritualidad en la vida cotidiana centro-domicilio</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                                <i class="fas fa-cogs text-green-600 mr-2"></i>
+                                Acciones que realizamos
+                            </h3>
+                            <ul class="space-y-2 text-gray-600">
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Facilitar asistencia a misa u otras ceremonias</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Coordinar visitas de capellanes/ministros religiosos al centro</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Organizar espacios de meditación y reflexión personal</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Dinámicas de recuerdo y conmemoración de tradiciones personales</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Reuniones con la familia para respetar prácticas a domicilio</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Acompañamiento emocional en momentos de pérdida</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Fomentar expresión de valores y creencias en grupo</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Observación y registro del bienestar espiritual y emocional</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <details class="mt-8 p-6 bg-green-50 rounded-xl">
+                        <summary class="font-semibold text-gray-800 flex items-center cursor-pointer">
+                            <i class="fas fa-info-circle text-green-600 mr-2"></i>
+                            Información adicional
+                        </summary>
+                        <div class="mt-3 text-gray-600">
+                            Ofrecemos un acompañamiento respetuoso, sin imponer creencias, adaptado a la persona. 
+                            En fechas señaladas se facilitan celebraciones y espacios de recogimiento. Cuando existe 
+                            una situación de duelo, se ofrece apoyo emocional y coordinación con la familia.
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Alimentación y Nutrición -->
+            <div class="service-section mb-16" id="alimentacion">
+                <div class="bg-gray-50 rounded-2xl p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="text-green-600 mr-4">
+                            <i class="fas fa-utensils text-3xl"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-gray-800">Alimentación y Nutrición</h2>
+                    </div>
+                    
+                    <div class="mb-8 service-intro">
+                        <p class="text-gray-600 mb-4">
+                            Una alimentación adecuada es clave para la salud, la energía y el bienestar general. 
+                            En APEMAR cuidamos el estado nutricional con planes adaptados a cada persona (texturas, 
+                            gustos, necesidades clínicas) y un seguimiento continuo.
+                        </p>
+                        <p class="text-gray-600">
+                            La seguridad durante las comidas es prioritaria, especialmente cuando existen dificultades de 
+                            deglución. Coordinamos con la familia los hábitos alimentarios centro-casa y fomentamos el placer 
+                            y la participación en el momento de comer.
+                        </p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 service-columns">
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                                <i class="fas fa-heart text-green-600 mr-2"></i>
+                                Necesidades que atendemos
+                            </h3>
+                            <ul class="space-y-2 text-gray-600">
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Seguir una dieta adaptada (triturada, sin sal, sin azúcar…)</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Coordinar hábitos alimentarios centro-casa</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Evitar desnutrición o deshidratación</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Fomentar placer y participación en las comidas</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Garantizar seguridad en ingesta y deglución</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Respetar preferencias culturales y personales</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Detectar problemas digestivos o alergias</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Reforzar hábitos saludables y equilibrados</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                                <i class="fas fa-bullseye text-green-600 mr-2"></i>
+                                Objetivos que perseguimos
+                            </h3>
+                            <ul class="space-y-2 text-gray-600">
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Mantener un estado nutricional óptimo</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Coordinar la dieta con familia y entorno doméstico</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Garantizar seguridad durante las comidas</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Favorecer participación y autonomía al comer</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Evitar riesgos nutricionales o patológicos</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Fomentar placer y satisfacción en las comidas</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Promover educación nutricional y hábitos saludables</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Detectar cambios nutricionales para actuar a tiempo</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                                <i class="fas fa-cogs text-green-600 mr-2"></i>
+                                Acciones que realizamos
+                            </h3>
+                            <ul class="space-y-2 text-gray-600">
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Control de peso y seguimiento nutricional (enfermería)</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Aplicación de dietas especiales (triturada, sin sal, sin azúcar…)</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Supervisión de deglución y seguridad alimentaria</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Promoción de participación en preparación de comidas o talleres culinarios</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Coordinación con la familia sobre pautas y gustos</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Observación y registro de ingesta e hidratación</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Refuerzo positivo de hábitos saludables</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Ajuste de la dieta según recomendación médica o preferencias</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <details class="mt-8 p-6 bg-green-50 rounded-xl">
+                        <summary class="font-semibold text-gray-800 flex items-center cursor-pointer">
+                            <i class="fas fa-info-circle text-green-600 mr-2"></i>
+                            Información adicional
+                        </summary>
+                        <div class="mt-3 text-gray-600">
+                            Se realiza un seguimiento continuado del estado nutricional y se adaptan las dietas según evolución 
+                            y necesidades médicas. En caso de disfagia se aplican texturas seguras y pautas específicas. 
+                            Se cuida también el ambiente de la comida para favorecer la calma, el disfrute y la autonomía.
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6">¿Interesado en nuestros servicios?</h2>
+            <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+                Contáctanos para recibir información personalizada sobre cómo podemos ayudar a tus seres queridos
+            </p>
+            <a href="mailto:info@apemar.org?subject=Consulta%20desde%20servicios%20APEMAR&body=Hola%2C%20me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%20sobre..." 
+               class="inline-block bg-green-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-green-700 transition duration-300 transform hover:scale-105 btn-animation">
+                <i class="fas fa-envelope mr-2"></i>
+                Contactar Ahora
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 justify-items-center">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <img src="apemar-logo.png" alt="APEMAR Logo" class="h-8 w-auto mr-2">
+                        <span class="text-xl font-bold">APEMAR</span>
+                    </div>
+                    <p class="text-gray-400">
+                        Associació de Persones Majors d'Albalat de la Ribera. Programa integral de atención especializada con 9 áreas de cuidado para el bienestar de nuestros mayores.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Enlaces Rápidos</h4>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-400 hover:text-white transition">Inicio</a></li>
+                        <li><a href="index.html#servicios" class="text-gray-400 hover:text-white transition">Servicios</a></li>
+                        <li><a href="index.html#nosotros" class="text-gray-400 hover:text-white transition">Nosotros</a></li>
+                        <li><a href="index.html#contacto" class="text-gray-400 hover:text-white transition">Contacto</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Servicios</h4>
+                    <ul class="space-y-2">
+                        <li><span class="text-gray-400">Atención Médica</span></li>
+                        <li><span class="text-gray-400">Actividades Sociales</span></li>
+                        <li><span class="text-gray-400">Terapias</span></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Legal</h4>
+                    <ul class="space-y-2">
+                        <li><a href="aviso-legal.html" class="text-gray-400 hover:text-white transition">Aviso Legal</a></li>
+                        <li><a href="politica-privacidad.html" class="text-gray-400 hover:text-white transition">Política de Privacidad</a></li>
+                        <li><a href="politica-cookies.html" class="text-gray-400 hover:text-white transition">Política de Cookies</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center">
+                <p class="text-gray-400">
+                    &copy; 2026 APEMAR. Todos los derechos reservados.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        (function() {
+            function applyServiceSelection() {
+                var id = '';
+                try {
+                    id = sessionStorage.getItem('apemar_selected_service') || '';
+                    if (id) {
+                        sessionStorage.removeItem('apemar_selected_service');
+                    }
+                } catch (e) {
+                    id = '';
+                }
+
+                var sections = document.querySelectorAll('.service-section');
+                if (!sections || !sections.length) return;
+
+                // Si no hay selección (por ejemplo, se abre servicios.html directamente), mostrar todo.
+                if (!id) {
+                    sections.forEach(function(section) {
+                        section.style.display = '';
+                    });
+                    // window.scrollTo(0, 0); // Comentado para no interferir
+                    return;
+                }
+
+                sections.forEach(function(section) {
+                    section.style.display = 'none';
+                });
+
+                var selected = document.getElementById(id);
+                if (selected) {
+                    selected.style.display = '';
+                }
+
+                // No forzar scroll al principio para permitir navegación suave
+                // window.scrollTo(0, 0); // Comentado para no interferir
+            }
+
+            var backButton = document.getElementById('backButton');
+            if (backButton) {
+                backButton.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    // Guardar posición actual de forma más directa
+                    var currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+                    sessionStorage.setItem('apemar_return_scroll', currentScroll.toString());
+                    window.location.href = 'index.html#servicios';
+                });
+            }
+
+            window.addEventListener('hashchange', applyServiceSelection);
+            // Ejecutar inmediatamente al cargar
+            applyServiceSelection();
+        })();
+    </script>
+</body>
+</html>

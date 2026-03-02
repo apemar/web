@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APEMAR - Associació de Persones Majors d'Albalat de la Ribera</title>
+    <link rel="icon" href="apemar-logo.png" type="image/png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .hide-until-ready { opacity: 0; visibility: hidden; }
+        
+        /* Animaciones del modal más sutiles */
+        #servicioModal.modal-enter {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        
+        #servicioModal.modal-enter-active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        #servicioModal.modal-exit {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        #servicioModal.modal-exit-active {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        
+        /* Estilos para details mejorados */
+        details.bg-green-50 {
+            transition: all 0.2s ease;
+        }
+        
+        details.bg-green-50[open] {
+            background-color: rgba(34, 197, 94, 0.15);
+        }
+        
+        details.bg-green-50 summary {
+            cursor: pointer;
+            user-select: none;
+            list-style: none; /* Quitar triángulo por defecto */
+            padding: 0; /* Sin padding extra */
+            width: 100%; /* Ocupar todo el ancho */
+            height: 60px; /* Altura fija */
+            display: flex; /* Para alinear elementos */
+            align-items: center; /* Centrar verticalmente */
+            justify-content: center; /* Centrar horizontalmente */
+            position: absolute; /* Posicionamiento absoluto */
+            top: 0; /* Fijo en la parte superior cuando está cerrado */
+            left: 0;
+            right: 0;
+            z-index: 10; /* Asegurar que esté encima */
+            transition: top 0.3s ease-out; /* Animación suave */
+        }
+        
+        details.bg-green-50 summary::-webkit-details-marker {
+            display: none; /* Quitar triángulo en WebKit */
+        }
+        
+        details.bg-green-50[open] summary {
+            position: absolute; /* Mantener posicionamiento absoluto */
+            height: 60px; /* Mantener altura fija */
+            top: 10px; /* Moverse un poco hacia abajo al abrir */
+            left: 0;
+            right: 0;
+            margin-bottom: 0; /* Sin margen inferior */
+            justify-content: center; /* Mantener centrado cuando está abierto */
+            transition: top 0.3s ease-out; /* Animación suave */
+        }
+        
+        /* Ocultar contenido cuando está cerrado */
+        details.bg-green-50:not([open]) div {
+            opacity: 0;
+            transform: translateY(15px) scale(0.95);
+            transition: all 0.4s ease-out;
+        }
+        
+        details.bg-green-50[open] div {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            transition: all 0.4s ease-out;
+            padding: 12px 16px; /* Espaciado interno */
+            text-align: center; /* Centrar texto del contenido */
+            margin-top: 60px; /* Espacio para el summary */
+        }
+        
+        /* Animaciones para el cuadro completo */
+        details.bg-green-50 {
+            transition: all 0.3s ease-out;
+            overflow: hidden;
+            height: 60px; /* Altura fija cuando está cerrado */
+            border-radius: 12px; /* Bordes más redondeados */
+            box-shadow: 0 2px 8px rgba(34, 197, 94, 0.1); /* Sombra sutil */
+            position: relative; /* Para posicionamiento absoluto del summary */
+        }
+        
+        details.bg-green-50:hover {
+            box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2); /* Sombra más intensa al hover */
+            transform: translateY(-1px); /* Ligero levantamiento */
+        }
+        
+        details.bg-green-50[open] {
+            height: 200px; /* Altura cuando está abierto */
+            box-shadow: 0 4px 16px rgba(34, 197, 94, 0.25); /* Sombra más pronunciada */
+        }
+        
+        details.bg-green-50[open] summary {
+            justify-content: center; /* Mantener centrado cuando está abierto */
+        }
+        
+        /* Animación de apertura para el contenido */
+        details.bg-green-50[open] div {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.3s ease-out;
+            padding: 12px 16px; /* Espaciado interno */
+            text-align: center; /* Centrar texto del contenido */
+            margin-top: 60px; /* Espacio para el summary */
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <script>
+        // Ejecutar inmediatamente para restaurar scroll
+        (function() {
+            var returnScroll = sessionStorage.getItem('apemar_return_scroll');
+            
+            if (returnScroll) {
+                // Prevenir scroll del navegador
+                if ('scrollRestoration' in history) {
+                    history.scrollRestoration = 'manual';
+                }
+                
+                // Ocultar página inmediatamente
+                document.documentElement.style.opacity = '0';
+                document.body.style.opacity = '0';
+                
+                // Restaurar scroll lo antes posible
+                var restoreScroll = function() {
+                    window.scrollTo(0, parseInt(returnScroll, 10));
+                    sessionStorage.removeItem('apemar_return_scroll');
+                    
+                    // Mostrar página
+                    document.documentElement.style.opacity = '1';
+                    document.body.style.opacity = '1';
+                    document.documentElement.style.transition = 'opacity 0.2s ease';
+                    document.body.style.transition = 'opacity 0.2s ease';
+                };
+                
+                // Intentar restaurar inmediatamente y también en load
+                restoreScroll();
+                if (document.readyState === 'loading') {
+                    document.addEventListener('DOMContentLoaded', restoreScroll);
+                    window.addEventListener('load', restoreScroll);
+                }
+            }
+        })();
+    </script>
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <img src="apemar-logo.png" alt="APEMAR Logo" class="h-8 w-auto mr-2">
+                        <span class="text-xl font-bold text-gray-800">APEMAR</span>
+                    </div>
+                    <div class="hidden md:ml-6 md:flex md:space-x-8">
+                        <a href="#inicio" class="nav-link text-gray-700 hover:text-green-600 px-3 py-2 text-sm font-medium">Inicio</a>
+                        <a href="#servicios" class="nav-link text-gray-700 hover:text-green-600 px-3 py-2 text-sm font-medium">Servicios</a>
+                        <a href="#nosotros" class="nav-link text-gray-700 hover:text-green-600 px-3 py-2 text-sm font-medium">Nosotros</a>
+                        <a href="#contacto" class="nav-link text-gray-700 hover:text-green-600 px-3 py-2 text-sm font-medium">Contacto</a>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <button class="md:hidden mobile-menu-button">
+                        <i class="fas fa-bars text-gray-700 text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div class="hidden mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t">
+                <a href="#inicio" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-green-600">Inicio</a>
+                <a href="#servicios" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-green-600">Servicios</a>
+                <a href="#nosotros" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-green-600">Nosotros</a>
+                <a href="#contacto" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-green-600">Contacto</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="gradient-bg text-white py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center fade-in">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6">
+                    APEMAR
+                </h1>
+                <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
+                    Associació de Persones Majors d'Albalat de la Ribera. Cuidado integral especializado con 9 áreas de atención para el bienestar de nuestros mayores
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#contacto" 
+                       class="border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-green-600 transition duration-300 transform hover:scale-105 btn-animation">
+                        Contactar Ahora
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="servicios" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Nuestros Servicios Especializados</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    Programa integral de atención con 9 áreas especializadas para el cuidado completo de personas mayores
+                </p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <a href="servicios.html?servicio=adaptacion" class="card-hover bg-white p-8 rounded-xl shadow-lg border border-gray-100 block">
+                    <div class="text-green-600 mb-4">
+                        <i class="fas fa-home text-4xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Adaptación y Acogida</h3>
+                    <p class="text-gray-600 mb-4">
+                        Facilitamos una adaptación progresiva y positiva con planes individualizados, coordinación familiar y seguimiento personalizado.
+                    </p>
+                    <span class="text-green-600 font-semibold hover:text-green-700">Leer más →</span>
+                </a>
+                <a href="servicios.html?servicio=emocional" class="card-hover bg-white p-8 rounded-xl shadow-lg border border-gray-100 block">
+                    <div class="text-green-600 mb-4">
+                        <i class="fas fa-heart text-4xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Área Emocional y Psicológica</h3>
+                    <p class="text-gray-600 mb-4">
+                        Apoyo emocional individual, sesiones de reminiscencia, actividades grupales y seguimiento del bienestar psicológico.
+                    </p>
+                    <span class="text-green-600 font-semibold hover:text-green-700">Leer más →</span>
+                </a>
+                <a href="servicios.html?servicio=cognitiva" class="card-hover bg-white p-8 rounded-xl shadow-lg border border-gray-100 block">
+                    <div class="text-green-600 mb-4">
+                        <i class="fas fa-brain text-4xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Estimulación Cognitiva</h3>
+                    <p class="text-gray-600 mb-4">
+                        Talleres diarios de estimulación cognitiva, ejercicios de memoria, atención, lenguaje y orientación a la realidad.
+                    </p>
+                    <span class="text-green-600 font-semibold hover:text-green-700">Leer más →</span>
+                </a>
+                <a href="servicios.html?servicio=fisica" class="card-hover bg-white p-8 rounded-xl shadow-lg border border-gray-100 block">
+                    <div class="text-green-600 mb-4">
+                        <i class="fas fa-running text-4xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Área Física y Funcional</h3>
+                    <p class="text-gray-600 mb-4">
+                        Gimnasia suave diaria, entrenamiento de movilidad, ejercicios de equilibrio y prevención de caídas con supervisión constante.
+                    </p>
+                    <span class="text-green-600 font-semibold hover:text-green-700">Leer más →</span>
+                </a>
+                <a href="servicios.html?servicio=higiene" class="card-hover bg-white p-8 rounded-xl shadow-lg border border-gray-100 block">
+                    <div class="text-green-600 mb-4">
+                        <i class="fas fa-shower text-4xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Higiene Personal e Imagen</h3>
+                    <p class="text-gray-600 mb-4">
+                        Apoyo respetuoso en higiene diaria, preservación de la intimidad, fomento de la autonomía y cuidado de la imagen personal.
+                    </p>
+                    <span class="text-green-600 font-semibold hover:text-green-700">Leer más →</span>
+                </a>
+                <a href="servicios.html?servicio=social" class="card-hover bg-white p-8 rounded-xl shadow-lg border border-gray-100 block">
+                    <div class="text-green-600 mb-4">
+                        <i class="fas fa-users text-4xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Área Social y Relacional</h3>
+                    <p class="text-gray-600 mb-4">
+                        Actividades grupales, celebraciones, talleres sociales, voluntariado y fomento de relaciones interpersonales positivas.
+                    </p>
+                    <span class="text-green-600 font-semibold hover:text-green-700">Leer más →</span>
+                </a>
+                <a href="servicios.html?servicio=ludica" class="card-hover bg-white p-8 rounded-xl shadow-lg border border-gray-100 block">
+                    <div class="text-green-600 mb-4">
+                        <i class="fas fa-gamepad text-4xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Área Lúdica y Ocupacional</h3>
+                    <p class="text-gray-600 mb-4">
+                        Talleres de música, manualidades, jardinería, cocina, juegos de mesa y actividades basadas en intereses personales.
+                    </p>
+                    <span class="text-green-600 font-semibold hover:text-green-700">Leer más →</span>
+                </a>
+                <a href="servicios.html?servicio=espiritual" class="card-hover bg-white p-8 rounded-xl shadow-lg border border-gray-100 block">
+                    <div class="text-green-600 mb-4">
+                        <i class="fas fa-pray text-4xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Área Espiritual y Valores</h3>
+                    <p class="text-gray-600 mb-4">
+                        Acceso a prácticas religiosas, espacios de meditación, respeto a creencias personales y acompañamiento en momentos de dol.
+                    </p>
+                    <span class="text-green-600 font-semibold hover:text-green-700">Leer más →</span>
+                </a>
+                <a href="servicios.html?servicio=alimentacion" class="card-hover bg-white p-8 rounded-xl shadow-lg border border-gray-100 block">
+                    <div class="text-green-600 mb-4">
+                        <i class="fas fa-utensils text-4xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Alimentación y Nutrición</h3>
+                    <p class="text-gray-600 mb-4">
+                        Dietas adaptadas, control nutricional, supervisión de la deglución y coordinación de hábitos alimentarios con la familia.
+                    </p>
+                    <span class="text-green-600 font-semibold hover:text-green-700">Leer más →</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="nosotros" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6">Sobre APEMAR</h2>
+                    <p class="text-lg text-gray-600 mb-6">
+                        Somos la Associació de Persones Majors d'Albalat de la Ribera, una organización comprometida con el cuidado integral y especializado de personas mayores.
+                    </p>
+                    <p class="text-lg text-gray-600 mb-8">
+                        Nuestro programa de atención integral abarca 9 áreas especializadas para garantizar el bienestar físico, emocional, social y espiritual de nuestros residentes, coordinando siempre con las familias para mantener la coherencia en los cuidados.
+                    </p>
+                    <div class="grid grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="text-3xl font-bold text-green-600 mb-2">9</h4>
+                            <p class="text-gray-600">Áreas de Atención</p>
+                        </div>
+                        <div>
+                            <h4 class="text-3xl font-bold text-green-600 mb-2">9-17h</h4>
+                            <p class="text-gray-600">L-V (Festivos cerrado)</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gradient-to-br from-green-500 to-green-700 rounded-2xl p-8 text-white">
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="text-center">
+                            <i class="fas fa-heart text-3xl mb-3"></i>
+                            <h4 class="font-semibold">Cuidado Integral</h4>
+                        </div>
+                        <div class="text-center">
+                            <i class="fas fa-shield-alt text-3xl mb-3"></i>
+                            <h4 class="font-semibold">Seguridad en Horario</h4>
+                        </div>
+                        <div class="text-center">
+                            <i class="fas fa-user-md text-3xl mb-3"></i>
+                            <h4 class="font-semibold">Personal Especializado</h4>
+                        </div>
+                        <div class="text-center">
+                            <i class="fas fa-smile text-3xl mb-3"></i>
+                            <h4 class="font-semibold">Ambiente Familiar</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contacto" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Contacto</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    ¿Tienes preguntas sobre nuestros servicios? Estamos aquí para ayudarte
+                </p>
+            </div>
+            
+            <!-- Contact Information Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                <!-- Location Card -->
+                <div class="bg-gray-50 p-6 rounded-xl text-center">
+                    <div class="text-green-600 mb-4">
+                        <i class="fas fa-map-marker-alt text-3xl"></i>
+                    </div>
+                    <h3 class="font-semibold text-gray-800 mb-2">Dirección</h3>
+                    <p class="text-gray-600">Albalat de la Ribera, Valencia</p>
+                </div>
+                
+                <!-- Phone Card -->
+                <div class="bg-gray-50 p-6 rounded-xl text-center">
+                    <div class="text-green-600 mb-4">
+                        <i class="fas fa-phone text-3xl"></i>
+                    </div>
+                    <h3 class="font-semibold text-gray-800 mb-2">Teléfono</h3>
+                    <p class="text-gray-600">+34 651 046 014</p>
+                </div>
+                
+                <!-- Email Card -->
+                <div class="bg-gray-50 p-6 rounded-xl text-center">
+                    <div class="text-green-600 mb-4">
+                        <i class="fas fa-envelope text-3xl"></i>
+                    </div>
+                    <h3 class="font-semibold text-gray-800 mb-2">Email</h3>
+                    <p class="text-gray-600">info@apemar.org</p>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+                <!-- Email and Location Buttons -->
+                <div class="text-center lg:text-left">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4">Contacto rápido</h3>
+                    <p class="text-gray-600 mb-6">
+                        Haz clic en los botones para contactarnos o vernos en el mapa
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="mailto:info@apemar.org?subject=Consulta%20desde%20web%20APEMAR&body=Hola%2C%20me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%20sobre..." 
+                           class="inline-block bg-green-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-green-700 transition duration-300 transform hover:scale-105 btn-animation">
+                            <i class="fas fa-envelope mr-2"></i>
+                            Enviar Email
+                        </a>
+                        <a href="https://www.google.com/maps?q=39.2021389,-0.3891111" target="_blank" 
+                           class="inline-block bg-green-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-green-700 transition duration-300 transform hover:scale-105 btn-animation">
+                            <i class="fas fa-map-marker-alt mr-2"></i>
+                            Ver en Google Maps
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Social Media -->
+                <div class="text-center">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4">Síguenos en redes sociales</h3>
+                    <p class="text-gray-600 mb-6">
+                        Mantente informado sobre nuestras actividades y noticias
+                    </p>
+                    <div class="flex justify-center space-x-6">
+                        <a href="https://www.facebook.com/apemaralbalat" target="_blank" class="bg-blue-600 text-white w-12 h-12 rounded-full flex items-center justify-center hover:bg-blue-700 transition">
+                            <i class="fab fa-facebook text-xl"></i>
+                        </a>
+                        <a href="https://www.instagram.com/apemar_albalat" target="_blank" class="bg-pink-600 text-white w-12 h-12 rounded-full flex items-center justify-center hover:bg-pink-700 transition">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                        <a href="https://www.youtube.com/channel/UC-h_YSBAJfajyCf-R1z6rjQ" target="_blank" class="bg-red-600 text-white w-12 h-12 rounded-full flex items-center justify-center hover:bg-red-700 transition">
+                            <i class="fab fa-youtube text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal de Servicios -->
+    <div id="servicioModal" class="fixed inset-0 bg-white z-50 hidden overflow-y-auto transition-all duration-200 ease-in-out transform">
+        <!-- Navigation -->
+        <nav class="bg-white shadow-lg sticky top-0 z-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between h-16">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0 flex items-center">
+                            <img src="apemar-logo.png" alt="APEMAR Logo" class="h-8 w-auto mr-2">
+                            <span class="text-xl font-bold text-gray-800">APEMAR</span>
+                        </div>
+                        <div class="hidden md:ml-6 md:flex md:space-x-8">
+                            <a href="index.html" class="nav-link text-gray-700 hover:text-green-600 px-3 py-2 text-sm font-medium">Inicio</a>
+                            <a href="index.html#servicios" class="nav-link text-gray-700 hover:text-green-600 px-3 py-2 text-sm font-medium">Servicios</a>
+                            <a href="index.html#nosotros" class="nav-link text-gray-700 hover:text-green-600 px-3 py-2 text-sm font-medium">Nosotros</a>
+                            <a href="index.html#contacto" class="nav-link text-gray-700 hover:text-green-600 px-3 py-2 text-sm font-medium">Contacto</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="gradient-bg text-white py-16">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-4">Nuestros Servicios Detallados</h1>
+                    <p class="text-xl max-w-3xl mx-auto">
+                        Conoce en profundidad cada una de nuestras 9 áreas especializadas de atención integral
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contenido del servicio -->
+        <section class="py-20 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div id="modalContenido">
+                    <!-- El contenido se cargará dinámicamente -->
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 justify-items-center">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <img src="apemar-logo.png" alt="APEMAR Logo" class="h-8 w-auto mr-2">
+                        <span class="text-xl font-bold">APEMAR</span>
+                    </div>
+                    <p class="text-gray-400">
+                        Associació de Persones Majors d'Albalat de la Ribera. Programa integral de atención especializada con 9 áreas de cuidado para el bienestar de nuestros mayores.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Enlaces Rápidos</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#inicio" class="text-gray-400 hover:text-white transition">Inicio</a></li>
+                        <li><a href="#servicios" class="text-gray-400 hover:text-white transition">Servicios</a></li>
+                        <li><a href="#nosotros" class="text-gray-400 hover:text-white transition">Nosotros</a></li>
+                        <li><a href="#contacto" class="text-gray-400 hover:text-white transition">Contacto</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Servicios</h4>
+                    <ul class="space-y-2">
+                        <li><span class="text-gray-400">Atención Médica</span></li>
+                        <li><span class="text-gray-400">Actividades Sociales</span></li>
+                        <li><span class="text-gray-400">Terapias</span></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Legal</h4>
+                    <ul class="space-y-2">
+                        <li><a href="aviso-legal.html" class="text-gray-400 hover:text-white transition">Aviso Legal</a></li>
+                        <li><a href="politica-privacidad.html" class="text-gray-400 hover:text-white transition">Política de Privacidad</a></li>
+                        <li><a href="politica-cookies.html" class="text-gray-400 hover:text-white transition">Política de Cookies</a></li>
+                    </ul>
+                </div>
+                            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center">
+                <p class="text-gray-400">
+                    &copy; 2026 APEMAR. Todos los derechos reservados.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Datos de los servicios para el modal
+        const serviciosData = {
+            adaptacion: {
+                icono: 'fa-home',
+                titulo: 'Adaptación y Acogida',
+                intro: [
+                    'El proceso de adaptación es fundamental para garantizar el bienestar y la integración exitosa de nuestros residentes. Entendemos que cada persona necesita un tiempo y un acompañamiento especial para sentirse cómoda y segura en su nuevo hogar.',
+                    'Nuestro programa de acogida está diseñado para facilitar una transición suave y positiva, considerando tanto las necesidades individuales como la dinámica familiar. Trabajamos en estrecha colaboración con las familias para mantener la coherencia entre los hábitos del centro y los del hogar.'
+                ],
+                necesidades: [
+                    'Comprender horarios y dinámicas del centro',
+                    'Sentirse acogido/a y reconocido/a por profesionales',
+                    'Establecer vínculos de confianza con el equipo',
+                    'Coordinar rutinas del centro con las de casa',
+                    'Reducir ansiedad o inseguridad ante cambios',
+                    'Adaptarse a espacios, normas y actividades',
+                    'Recibir información clara sobre servicios',
+                    'Mantener contacto y participación familiar'
+                ],
+                objetivos: [
+                    'Facilitar adaptación progresiva y positiva',
+                    'Promover integración en actividades y grupos',
+                    'Potenciar sentimiento de pertenencia y confianza',
+                    'Reforzar comunicación con la familia',
+                    'Detectar precozmente dificultades de adaptación',
+                    'Coordinar hábitos centro-casa',
+                    'Mejorar seguridad emocional',
+                    'Potenciar autonomía y participación diaria'
+                ],
+                acciones: [
+                    'Entrevista inicial con persona y familia',
+                    'Asignación de profesional de referencia',
+                    'Plan de acogida individualizado con seguimiento',
+                    'Presentación progresiva de espacios y actividades',
+                    'Actividades grupales de conocimiento e integración',
+                    'Coordinación familiar para rutinas diarias',
+                    'Observación constante del estado emocional',
+                    'Reuniones de valoración periódicas'
+                ],
+                infoAdicional: 'El período de adaptación suele durar entre 2 y 4 semanas, durante las cuales realizamos un seguimiento intensivo tanto de la persona como de su familia. Cada residente cuenta con un profesional de referencia que actúa como punto de contacto principal para resolver cualquier duda o inquietud.'
+            },
+            emocional: {
+                icono: 'fa-heart',
+                titulo: 'Área Emocional y Psicológica',
+                intro: [
+                    'El bienestar emocional y psicológico es fundamental para una calidad de vida plena en personas mayores. Nuestro enfoque integral aborda tanto las necesidades emocionales individuales como la salud mental general, proporcionando un entorno seguro donde cada persona puede expresar sus sentimientos y encontrar apoyo.',
+                    'Trabajamos para mantener y fortalecer la autoestima, gestionar adecuadamente las emociones y proporcionar herramientas para enfrentar los desafíos propios de esta etapa de la vida. La coherencia entre el centro y el hogar es clave para el bienestar emocional continuo.'
+                ],
+                necesidades: [
+                    'Expresar libremente emociones y sentimientos',
+                    'Recibir apoyo en ansiedad, dolor o pérdida',
+                    'Mantener autoestima y sentimiento de utilidad',
+                    'Sentirse escuchado/a y respetado/a',
+                    'Reforzar seguridad personal y control de vida',
+                    'Reducir la soledad emocional',
+                    'Mantener actitud positiva ante cambios',
+                    'Garantizar coherencia emocional centro-casa'
+                ],
+                objetivos: [
+                    'Potenciar estabilidad emocional y bienestar',
+                    'Mejorar capacidad de expresar y gestionar emociones',
+                    'Fortalecer autoestima e identidad personal',
+                    'Favorecer relaciones de confianza',
+                    'Detectar y intervenir precozmente en malestar',
+                    'Promover participación activa en decisiones',
+                    'Coordinar estrategias emocionales con familia',
+                    'Reforzar estado de ánimo con actividades'
+                ],
+                acciones: [
+                    'Sesiones individuales de apoyo emocional',
+                    'Actividades de reminiscencia y validación',
+                    'Dinámicas grupales para autoestima y confianza',
+                    'Incorporación de actividades significativas',
+                    'Coordinación con familia para apoyo emocional',
+                    'Seguimiento de apatía, irritabilidad o tristeza',
+                    'Intervención en momentos de dolor o cambio',
+                    'Espacios diarios de motivación y buen humor'
+                ],
+                infoAdicional: 'Contamos con personal especializado en psicología geriátrica que realiza evaluaciones periódicas del estado emocional. Las sesiones de apoyo se adaptan a las necesidades individuales y pueden incluir terapia reminiscencia, musicoterapia, arteterapia y otras intervenciones terapéuticas complementarias que promueven el bienestar emocional.'
+            },
+            cognitiva: {
+                icono: 'fa-brain',
+                titulo: 'Estimulación Cognitiva',
+                intro: [
+                    'La estimulación cognitiva es fundamental para mantener activas las funciones mentales y retrasar el deterioro cognitivo. Nuestro programa integral abarca memoria, atención, lenguaje, orientación y razonamiento, adaptando cada actividad a las capacidades individuales de cada residente.',
+                    'Trabajamos de manera sistemática y diaria para preservar y estimular las capacidades cognitivas, fomentando la autonomía en la toma de decisiones y manteniendo la conexión con la realidad. La coordinación con la familia asegura la continuidad de los ejercicios cognitivos en el domicilio.'
+                ],
+                necesidades: [
+                    'Estimulación cognitiva diaria adaptada',
+                    'Evitar desconexión con la realidad',
+                    'Mantener memoria, atención y orientación',
+                    'Prevenir deterioro cognitivo acelerado',
+                    'Coordinar ejercicios con familia',
+                    'Favorecer autonomía en toma de decisiones',
+                    'Mantener capacidad de lenguaje y comunicación',
+                    'Estimular razonamiento y resolución de problemas'
+                ],
+                objetivos: [
+                    'Preservar y estimular funciones cognitivas',
+                    'Mantener orientación temporal, espacial y personal',
+                    'Potenciar participación activa en actividades mentales',
+                    'Retardar deterioro cognitivo',
+                    'Fomentar autonomía cognitiva en actividades diarias',
+                    'Facilitar transferencia de rutinas cognitivas a casa',
+                    'Detectar cambios cognitivos para actuación precoz',
+                    'Mejorar autoestima a través de éxitos cognitivos'
+                ],
+                acciones: [
+                    'Talleres diarios de estimulación cognitiva',
+                    'Ejercicios de atención, cálculo, memoria y lenguaje',
+                    'Orientación a la realidad con calendarios y soportes visuales',
+                    'Lectura de noticias, debate o tertulias guiadas',
+                    'Juegos de mesa y actividades lúdicas con razonamiento',
+                    'Coordinación con familia para ejercicios a domicilio',
+                    'Seguimiento periódico del rendimiento cognitivo',
+                    'Refuerzo positivo de los éxitos cognitivos'
+                ],
+                infoAdicional: 'Contamos con neuropsicólogos y terapeutas ocupacionales especializados en estimulación cognitiva. Las sesiones diarias de 45 minutos incluyen ejercicios personalizados según el nivel cognitivo de cada residente. Realizamos evaluaciones trimestrales para ajustar los programas y mantener la efectividad de las intervenciones.'
+            },
+            fisica: {
+                icono: 'fa-running',
+                titulo: 'Área Física y Funcional',
+                intro: [
+                    'La capacidad física y funcional es esencial para mantener la independencia y calidad de vida. Nuestro programa integral está diseñado para preservar y mejorar la movilidad, fuerza y equilibrio mediante ejercicios adaptados y supervisados por profesionales especializados.',
+                    'Trabajamos de manera proactiva en la prevención de caídas y lesiones, adaptando todas las actividades a las capacidades individuales de cada residente. La coordinación entre el centro y el domicilio asegura la continuidad de los hábitos activos y el mantenimiento de la autonomía en las actividades de la vida diaria.'
+                ],
+                necesidades: [
+                    'Mantener movilidad y fuerza muscular',
+                    'Evitar dependencia funcional progresiva',
+                    'Prevenir caídas y lesiones accidentales',
+                    'Adaptar actividades a capacidades individuales',
+                    'Reforzar hábitos activos en domicilio',
+                    'Mantener coordinación y equilibrio',
+                    'Promover autonomía en AVD (Actividades Vida Diaria)',
+                    'Garantizar seguridad en traslados y espacios'
+                ],
+                objetivos: [
+                    'Preservar independencia en AVD',
+                    'Mejorar equilibrio y coordinación',
+                    'Favorecer participación activa en actividades físicas',
+                    'Reducir riesgo de caídas y accidentes',
+                    'Coordinar ejercicios entre centro y domicilio',
+                    'Potenciar fuerza, resistencia y flexibilidad',
+                    'Fomentar uso adecuado de ayudas técnicas',
+                    'Detectar y corregir hábitos posturales inadecuados'
+                ],
+                acciones: [
+                    'Sesión diaria de gimnasia suave y psicomotricidad',
+                    'Entrenamiento en transferencias y movilidad',
+                    'Ejercicios de fuerza y equilibrio adaptados',
+                    'Supervisión de desplazamientos dentro del centro',
+                    'Recomendaciones de ejercicios sencillos para casa',
+                    'Adaptación de espacios para seguridad',
+                    'Observación y registro de capacidades funcionales',
+                    'Refuerzo positivo de la participación y autonomía'
+                ],
+                infoAdicional: 'Contamos con fisioterapeutas y terapeutas ocupacionales especializados que diseñan programas individualizados. Las sesiones diarias de 30-45 minutos incluyen ejercicios de bajo impacto, estiramientos y actividades de coordinación. Realizamos evaluaciones funcionales mensuales para ajustar los programas según las necesidades cambiantes de cada residente.'
+            },
+            higiene: {
+                icono: 'fa-shower',
+                titulo: 'Higiene Personal e Imagen',
+                intro: [
+                    'La higiene personal y el cuidado de la imagen son fundamentales para mantener la dignidad, autoestima y salud de nuestros residentes. Nuestro enfoque respetuoso garantiza la intimidad mientras proporciona el apoyo necesario para mantener hábitos de higiene adecuados y seguros.',
+                    'Trabajamos coordinadamente con las familias para mantener las rutinas de higiene establecidas, adaptando los apoyos según las capacidades individuales y promoviendo la máxima autonomía posible. El confort y el bienestar durante los cuidados son prioritarios en cada intervención.'
+                ],
+                necesidades: [
+                    'Recibir apoyo respetuoso en higiene diaria',
+                    'Preservar intimidad y dignidad personal',
+                    'Mantener imagen personal y autocuidado',
+                    'Coordinar rutinas con la familia',
+                    'Reforzar autonomía en AVD de higiene',
+                    'Recibir orientación sobre productos y técnicas',
+                    'Evitar infecciones y problemas cutáneos',
+                    'Favorecer placer y confort en el cuidado'
+                ],
+                objetivos: [
+                    'Mantener higiene personal adecuada y segura',
+                    'Preservar intimidad y dignidad en cuidados',
+                    'Promover máxima autonomía posible',
+                    'Coordinar rutinas higiene centro-casa',
+                    'Prevenir problemas dermatológicos e infecciones',
+                    'Fomentar autoimagen positiva',
+                    'Adaptar apoyos a capacidades individuales',
+                    'Garantizar confort y bienestar en cuidados'
+                ],
+                acciones: [
+                    'Apoyo respetuoso en higiene diaria',
+                    'Supervisión y guía en autocuidado',
+                    'Adaptación de espacios y utensilios',
+                    'Coordinación con familia sobre preferencias',
+                    'Educación en técnicas de autocuidado',
+                    'Selección de productos adecuados',
+                    'Vigilancia de piel y mucosas',
+                    'Respeto a ritmos y preferencias personales'
+                ],
+                infoAdicional: 'Nuestro equipo de cuidadores está especializado en higiene geriátrica, respetando siempre la intimidad y dignidad de cada residente. Utilizamos productos dermatológicamente testados y adaptados a pieles sensibles. Realizamos evaluaciones periódicas para ajustar los niveles de apoyo según la evolución de cada persona.'
+            },
+            social: {
+                icono: 'fa-users',
+                titulo: 'Área Social y Relacional',
+                intro: [
+                    'Las relaciones sociales son fundamentales para el bienestar emocional y cognitivo de las personas mayores. Nuestro programa social está diseñado para fomentar la interacción, crear vínculos significativos y mantener una red social activa que enriquezca la vida diaria de nuestros residentes.',
+                    'Promovemos actividades que faciliten la comunicación, el compañerismo y la participación comunitaria, creando un ambiente donde cada persona se sienta valorada, conectada y parte de una comunidad que apoya y enriquece mutuamente.'
+                ],
+                necesidades: [
+                    'Mantener relaciones sociales significativas',
+                    'Participar en actividades grupales',
+                    'Sentirse parte de una comunidad',
+                    'Compartir experiencias y conocimientos',
+                    'Recibir y dar apoyo social',
+                    'Mantener roles sociales activos',
+                    'Celebrar fechas importantes',
+                    'Tener oportunidades de liderazgo'
+                ],
+                objetivos: [
+                    'Fomentar integración social activa',
+                    'Crear y mantener vínculos significativos',
+                    'Promover participación en actividades comunitarias',
+                    'Desarrollar habilidades sociales y comunicación',
+                    'Prevenir aislamiento y soledad',
+                    'Mantener roles sociales valorados',
+                    'Facilitar intercambio intergeneracional',
+                    'Potenciar sentido de pertenencia'
+                ],
+                acciones: [
+                    'Actividades grupales diarias variadas',
+                    'Celebraciones de cumpleaños y festividades',
+                    'Talleres de habilidades sociales',
+                    'Grupos de interés y aficiones',
+                    'Actividades intergeneracionales',
+                    'Voluntariado y ayuda mutua',
+                    'Excursiones y salidas culturales',
+                    'Espacios de conversación y tertulias'
+                ],
+                infoAdicional: 'Organizamos más de 20 actividades sociales semanales, desde grupos de conversación hasta talleres creativos y celebraciones comunitarias. Contamos con voluntarios y colaboradores externos que enriquecen nuestras actividades y facilitan el intercambio intergeneracional.'
+            },
+            ludica: {
+                icono: 'fa-gamepad',
+                titulo: 'Área Lúdica y Ocupacional',
+                intro: [
+                    'El juego y las actividades ocupacionales son esenciales para mantener la mente activa, estimular la creatividad y proporcionar momentos de alegría y satisfacción. Nuestro programa lúdico está diseñado para adaptarse a los intereses y capacidades de cada residente, ofreciendo opciones que van desde juegos tradicionales hasta actividades creativas innovadoras.',
+                    'Fomentamos el ocio significativo que no solo entretiene, sino que también contribuye al bienestar emocional, cognitivo y social, creando experiencias positivas que enriquecen la vida diaria y fortalecen la autoestima.'
+                ],
+                necesidades: [
+                    'Disfrutar de actividades recreativas',
+                    'Mantener la mente activa y creativa',
+                    'Experimentar éxito y logros',
+                    'Socializar a través del juego',
+                    'Expresar creatividad',
+                    'Tener tiempo de ocio estructurado',
+                    'Aprender nuevas habilidades',
+                    'Relajarse y divertirse'
+                ],
+                objetivos: [
+                    'Fomentar disfrute y bienestar',
+                    'Mantener funciones cognitivas activas',
+                    'Estimular creatividad e imaginación',
+                    'Promover interacción social',
+                    'Desarrollar nuevas habilidades',
+                    'Mejorar estado de ánimo',
+                    'Prevenir aburrimiento y apatía',
+                    'Fortalecer autoestima a través del logro'
+                ],
+                acciones: [
+                    'Talleres de música y canto',
+                    'Actividades de manualidades y artesanías',
+                    'Juegos de mesa y cartas',
+                    'Talleres de cocina y jardinería',
+                    'Actividades de reminiscencia lúdica',
+                    'Tertulias literarias y de poesía',
+                    'Juegos de memoria y atención',
+                    'Celebraciones y fiestas temáticas'
+                ],
+                infoAdicional: 'Contamos con un amplio catálogo de más de 50 actividades lúdicas diferentes, adaptadas a distintos niveles de capacidad. Desde juegos de mesa tradicionales hasta talleres de nuevas tecnologías, siempre buscando actividades que sean significativas y enriquecedoras para cada residente.'
+            },
+            espiritual: {
+                icono: 'fa-pray',
+                titulo: 'Área Espiritual y Valores',
+                intro: [
+                    'El bienestar espiritual y la conexión con valores personales son fundamentales para una vida plena y con sentido, especialmente en la etapa de la vejez. Nuestro programa espiritual respeta y acompaña las creencias individuales, proporcionando espacios para la reflexión, la trascendencia y el encuentro con lo significativo para cada persona.',
+                    'Facilitamos el acceso a prácticas espirituales y religiosas según las preferencias de cada residente, creando un ambiente de respeto mutuo donde todas las creencias son valoradas y apoyadas.'
+                ],
+                necesidades: [
+                    'Acceso a prácticas religiosas o espirituales',
+                    'Espacios para reflexión y meditación',
+                    'Respeto a creencias personales',
+                    'Acompañamiento en momentos de duda',
+                    'Celebración de rituales importantes',
+                    'Conexión con valores vitales',
+                    'Sentido de trascendencia',
+                    'Paz interior y serenidad'
+                ],
+                objetivos: [
+                    'Respetar y apoyar creencias individuales',
+                    'Facilitar acceso a prácticas espirituales',
+                    'Promover reflexión y meditación',
+                    'Acompañar en búsqueda de sentido',
+                    'Crear espacios de paz y tranquilidad',
+                    'Fomentar valores personales',
+                    'Apoyar en momentos de crisis espiritual',
+                    'Promover bienestar espiritual integral'
+                ],
+                acciones: [
+                    'Celebraciones religiosas según creencias',
+                    'Espacios de meditación y oración',
+                    'Acompañamiento espiritual personalizado',
+                    'Grupos de reflexión y diálogo',
+                    'Lectura de textos sagrados o inspiradores',
+                    'Música y cantos espirituales',
+                    'Celebración de festividades importantes',
+                    'Apoyo en momentos de duelo y pérdida'
+                ],
+                infoAdicional: 'Contamos con el apoyo de voluntarios de diferentes confesiones religiosas y guías espirituales. Respetamos absolutamente las creencias de cada residente, incluyendo aquellos que no profesan ninguna religión, ofreciendo alternativas seculares de reflexión y crecimiento personal.'
+            },
+            alimentacion: {
+                icono: 'fa-utensils',
+                titulo: 'Alimentación y Nutrición',
+                intro: [
+                    'Una alimentación adecuada es fundamental para la salud, el bienestar y la calidad de vida de las personas mayores. Nuestro programa nutricional está diseñado para proporcionar comidas equilibradas, seguras y adaptadas a las necesidades específicas de cada residente, considerando tanto aspectos médicos como preferencias personales.',
+                    'Trabajamos con nutricionistas especializados que diseñan menús variados y apetitosos, asegurando el aporte adecuado de nutrientes mientras mantenemos el placer de comer y las tradiciones culinarias que cada residente valora.'
+                ],
+                necesidades: [
+                    'Recibir alimentación equilibrada y segura',
+                    'Tener dietas adaptadas a necesidades médicas',
+                    'Mantener hidratación adecuada',
+                    'Disfrutar de comidas apetitosas',
+                    'Respetar preferencias y tradiciones',
+                    'Tener apoyo en dificultades de deglución',
+                    'Mantener peso saludable',
+                    'Socializar durante las comidas'
+                ],
+                objetivos: [
+                    'Garantizar nutrición adecuada y segura',
+                    'Adaptar dietas a necesidades médicas',
+                    'Mantener hidratación óptima',
+                    'Fomentar disfrute de las comidas',
+                    'Prevenir problemas nutricionales',
+                    'Coordinar nutrición centro-familia',
+                    'Educación nutricional',
+                    'Socialización en momentos de comida'
+                ],
+                acciones: [
+                    'Menús diarios variados y equilibrados',
+                    'Adaptación a dietas terapéuticas',
+                    'Supervisión durante las comidas',
+                    'Educación en hábitos alimenticios',
+                    'Coordinación con familia sobre preferencias',
+                    'Control de hidratación',
+                    'Adaptación de texturas según necesidades',
+                    'Celebración de comidas especiales'
+                ],
+                infoAdicional: 'Contamos con nutricionistas y dietistas que revisan semanalmente los menús. Realizamos evaluaciones nutricionales trimestrales y adaptamos las dietas según las necesidades cambiantes. Nuestro equipo de cocina está especializado en gastronomía geriátrica, creando platos nutritivos y apetitosos.'
+            }
+        };
+
+        // Función para mostrar el modal con el servicio seleccionado
+        function mostrarServicio(servicioId) {
+            const servicio = serviciosData[servicioId];
+            if (!servicio) return;
+
+            const contenidoHTML = `
+                <div class="mb-10">
+                    <button type="button" id="backButton" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition transform hover:scale-105 hover:shadow-lg active:scale-95 btn-exit-animation">
+                        <i class="fas fa-arrow-left mr-2"></i>
+                        Salir
+                    </button>
+                </div>
+                
+                <div class="service-section mb-16" id="${servicioId}">
+                    <div class="bg-gray-50 rounded-2xl p-8">
+                        <div class="flex items-center mb-6">
+                            <div class="text-green-600 mr-4">
+                                <i class="fas ${servicio.icono} text-3xl"></i>
+                            </div>
+                            <h2 class="text-2xl font-bold text-gray-800">${servicio.titulo}</h2>
+                        </div>
+                        
+                        <div class="mb-8 service-intro">
+                            ${servicio.intro.map(p => `<p class="text-gray-600 mb-4">${p}</p>`).join('')}
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 service-columns">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                                    <i class="fas fa-heart text-green-600 mr-2"></i>
+                                    Necesidades que atendemos
+                                </h3>
+                                <ul class="space-y-2 text-gray-600">
+                                    ${servicio.necesidades.map(n => `<li><i class="fas fa-check text-green-600 mr-2"></i>${n}</li>`).join('')}
+                                </ul>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                                    <i class="fas fa-bullseye text-green-600 mr-2"></i>
+                                    Objetivos que perseguimos
+                                </h3>
+                                <ul class="space-y-2 text-gray-600">
+                                    ${servicio.objetivos.map(o => `<li><i class="fas fa-star text-green-600 mr-2"></i>${o}</li>`).join('')}
+                                </ul>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                                    <i class="fas fa-cogs text-green-600 mr-2"></i>
+                                    Acciones que realizamos
+                                </h3>
+                                <ul class="space-y-2 text-gray-600">
+                                    ${servicio.acciones.map(a => `<li><i class="fas fa-arrow-right text-green-600 mr-2"></i>${a}</li>`).join('')}
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <details class="mt-8 p-6 bg-green-50 rounded-xl cursor-pointer hover:bg-green-100 transition-colors duration-200">
+                        <summary class="font-semibold text-gray-800 flex items-center rounded-lg w-full">
+                            <i class="fas fa-info-circle text-green-600 mr-2"></i>
+                            Información adicional
+                        </summary>
+                        <div class="mt-3 text-gray-600 overflow-hidden">
+                            ${servicio.infoAdicional}
+                        </div>
+                    </details>
+                    </div>
+                </div>
+            `;
+
+            const modal = document.getElementById('servicioModal');
+            document.getElementById('modalContenido').innerHTML = contenidoHTML;
+            
+            // Hacer scroll al principio del modal
+            modal.scrollTop = 0;
+            
+            // Animación de entrada
+            modal.classList.remove('hidden');
+            modal.classList.add('modal-enter');
+            
+            setTimeout(() => {
+                modal.classList.remove('modal-enter');
+                modal.classList.add('modal-enter-active');
+                // Asegurar scroll al principio después de la animación
+                modal.scrollTop = 0;
+            }, 10);
+            
+            document.body.style.overflow = 'hidden';
+            
+            // Añadir event listener al botón de atrás dentro del contenido
+            setTimeout(() => {
+                const backButton = document.getElementById('backButton');
+                if (backButton) {
+                    backButton.addEventListener('click', cerrarModal);
+                }
+                
+                // Hacer que toda la hitbox de details sea clickable
+                const detailsElements = modal.querySelectorAll('details.bg-green-50');
+                detailsElements.forEach(details => {
+                    const content = details.querySelector('div');
+                    
+                    // Establecer estado inicial
+                    if (!details.open) {
+                        content.style.opacity = '0';
+                        content.style.transform = 'translateY(15px) scale(0.95)';
+                    } else {
+                        content.style.opacity = '1';
+                        content.style.transform = 'translateY(0) scale(1)';
+                    }
+                    
+                    details.addEventListener('click', function(e) {
+                        // Solo abrir/cerrar si no se hizo clic en un enlace dentro del contenido
+                        if (!e.target.closest('a')) {
+                            e.preventDefault();
+                            
+                            if (this.open) {
+                                // No hacer nada si ya está abierto - no permitir cerrar
+                                return;
+                            } else {
+                                // Abrir - cambiar estado primero, luego animar
+                                this.open = true;
+                                
+                                // Forzar reflow
+                                content.offsetHeight;
+                                
+                                // Animar a estado abierto
+                                setTimeout(() => {
+                                    content.style.transition = 'all 0.4s ease-out';
+                                    content.style.opacity = '1';
+                                    content.style.transform = 'translateY(0) scale(1)';
+                                }, 10);
+                            }
+                        }
+                    });
+                });
+            }, 10);
+        }
+
+        // Función para cerrar el modal
+        function cerrarModal() {
+            const modal = document.getElementById('servicioModal');
+            
+            // Animación de salida
+            modal.classList.remove('modal-enter-active');
+            modal.classList.add('modal-exit');
+            
+            setTimeout(() => {
+                modal.classList.remove('modal-exit');
+                modal.classList.add('modal-exit-active');
+            }, 10);
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('modal-exit-active');
+                document.body.style.overflow = 'auto';
+            }, 200);
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Cerrar modal con la tecla Escape
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    cerrarModal();
+                }
+            });
+
+            // Modificar los enlaces de servicios para usar el modal
+            const serviciosLinks = document.querySelectorAll('a[href^="servicios.html?servicio="]');
+            serviciosLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const servicioId = this.href.split('servicio=')[1];
+                    mostrarServicio(servicioId);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
