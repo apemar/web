@@ -1,0 +1,2035 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APEMAR - Servei de Promoció de l'Autonomia Personal i Atenció a la Dependència</title>
+    <meta name="description"
+        content="APEMAR - Servei de Promoció de l'Autonomia Personal i Atenció a la Dependència. Servei acreditat N-5263. 9 àrees terapèutiques especialitzades a Albalat de la Ribera.">
+    <meta name="theme-color" content="#16a34a">
+    <meta property="og:title" content="APEMAR - Servei de Promoció de l'Autonomia Personal">
+    <meta property="og:description"
+        content="Servei de Promoció de l'Autonomia Personal i Atenció a la Dependència. Servei acreditat N-5263. Model ACP i equip multidisciplinari.">
+    <meta property="og:type" content="website">
+    <link rel="icon" href="fotos/apemar-logo.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Nunito:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Ocultar barras de scroll pero mantener funcionalidad */
+        html {
+            overflow: -moz-scrollbars-none;
+            /* Firefox */
+        }
+
+        body {
+            overflow: auto;
+            height: auto;
+            width: auto;
+        }
+
+        /* Para navegadores WebKit (Chrome, Safari, Edge) - ocultar visualmente */
+        ::-webkit-scrollbar {
+            display: none;
+            width: 0;
+            height: 0;
+        }
+
+        /* Para Firefox */
+        html {
+            scrollbar-width: none;
+        }
+
+        /* Para Internet Explorer y Edge antiguos */
+        body {
+            -ms-overflow-style: none;
+        }
+
+        /* Ocultar barras de scroll en modales */
+        #servicioModal {
+            overflow: -moz-scrollbars-none;
+            /* Firefox */
+        }
+
+        #servicioModal::-webkit-scrollbar {
+            display: none;
+            width: 0;
+            height: 0;
+        }
+
+        #servicioModal {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        /* Ocultar scroll en contenido del modal */
+        .modal-contenido,
+        .scrollable-content {
+            overflow: -moz-scrollbars-none;
+            /* Firefox */
+        }
+
+        .modal-contenido::-webkit-scrollbar,
+        .scrollable-content::-webkit-scrollbar {
+            display: none;
+            width: 0;
+            height: 0;
+        }
+
+        .modal-contenido,
+        .scrollable-content {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        /* Ocultar navegación superior dentro de modales */
+        #servicioModal nav,
+        #servicioModal .bg-white.shadow-lg.sticky {
+            display: none !important;
+        }
+
+        /* También ocultar cualquier elemento sticky dentro del modal */
+        #servicioModal [class*="sticky"] {
+            display: none !important;
+        }
+
+        /* Ocultar navegación principal cuando el modal está abierto */
+        #servicioModal:not(.hidden)~* nav,
+        #servicioModal:not(.hidden)+* nav,
+        body:has(#servicioModal:not(.hidden)) nav {
+            display: none !important;
+        }
+
+        /* Alternativa más específica para la navegación principal */
+        #servicioModal:not(.hidden)~* nav.fixed,
+        #servicioModal:not(.hidden)~* nav.z-50 {
+            display: none !important;
+        }
+
+        /* Ocultar barra de progreso de scroll */
+        #scroll-progress {
+            display: none !important;
+        }
+
+        /* Botó X flotant - només dins de modales i sempre visible */
+        #servicioModal button[title="Tancar"].fixed.rounded-full {
+            position: fixed !important;
+            top: 20px !important;
+            right: 20px !important;
+            z-index: 9999 !important;
+            background: white !important;
+            color: #1f2937 !important;
+            width: 50px !important;
+            height: 50px !important;
+            border-radius: 50% !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            font-size: 20px !important;
+            font-weight: bold !important;
+            transition: all 0.3s ease !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+
+        #servicioModal button[title="Tancar"].fixed.rounded-full:hover {
+            background: #f3f4f6 !important;
+            transform: scale(1.1) !important;
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2) !important;
+        }
+
+        .hide-until-ready {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        /* Animación de clic */
+        .click-animation {
+            transition: transform 0.1s ease;
+        }
+
+        .click-animation:active {
+            transform: scale(0.95);
+        }
+
+        /* Animaciones del modal más sutiles */
+        #servicioModal.modal-enter {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        #servicioModal.modal-enter-active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        #servicioModal.modal-exit {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        #servicioModal.modal-exit-active {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+
+        /* Estilos para details mejorados */
+        details.bg-green-50 {
+            transition: all 0.2s ease;
+        }
+
+        details.bg-green-50[open] {
+            background-color: rgba(34, 197, 94, 0.15);
+        }
+
+        details.bg-green-50 summary {
+            cursor: pointer;
+            user-select: none;
+            list-style: none;
+            /* Quitar triángulo por defecto */
+            padding: 0;
+            /* Sin padding extra */
+            width: 100%;
+            /* Ocupar todo el ancho */
+            height: 60px;
+            /* Altura fija */
+            display: flex;
+            /* Para alinear elementos */
+            align-items: center;
+            /* Centrar verticalmente */
+            justify-content: center;
+            /* Centrar horizontalmente */
+            position: absolute;
+            /* Posicionamiento absoluto */
+            top: 0;
+            /* Fijo en la parte superior cuando está cerrado */
+            left: 0;
+            right: 0;
+            z-index: 10;
+            /* Asegurar que esté encima */
+            transition: top 0.3s ease-out;
+            /* Animación suave */
+        }
+
+        details.bg-green-50 summary::-webkit-details-marker {
+            display: none;
+            /* Quitar triángulo en WebKit */
+        }
+
+        details.bg-green-50[open] summary {
+            position: absolute;
+            /* Mantener posicionamiento absoluto */
+            height: 60px;
+            /* Mantener altura fija */
+            top: 10px;
+            /* Moverse un poco hacia abajo al abrir */
+            left: 0;
+            right: 0;
+            margin-bottom: 0;
+            /* Sin margen inferior */
+            justify-content: center;
+            /* Mantener centrado cuando está abierto */
+            transition: top 0.3s ease-out;
+            /* Animación suave */
+        }
+
+        /* Ocultar contenido cuando está cerrado */
+        details.bg-green-50:not([open]) div {
+            opacity: 0;
+            transform: translateY(15px) scale(0.95);
+            transition: all 0.4s ease-out;
+        }
+
+        details.bg-green-50[open] div {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            transition: all 0.4s ease-out;
+            padding: 12px 16px;
+            /* Espaciado interno */
+            text-align: center;
+            /* Centrar texto del contenido */
+            margin-top: 60px;
+            /* Espacio para el summary */
+        }
+
+        /* Animaciones para el cuadro completo */
+        details.bg-green-50 {
+            transition: all 0.3s ease-out;
+            overflow: hidden;
+            height: 60px;
+            /* Altura fija cuando está cerrado */
+            border-radius: 12px;
+            /* Bordes más redondeados */
+            box-shadow: 0 2px 8px rgba(34, 197, 94, 0.1);
+            /* Sombra sutil */
+            position: relative;
+            /* Para posicionamiento absoluto del summary */
+        }
+
+        details.bg-green-50:hover {
+            box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2);
+            /* Sombra más intensa al hover */
+            transform: translateY(-1px);
+            /* Ligero levantamiento */
+        }
+
+        details.bg-green-50[open] {
+            height: 200px;
+            /* Altura cuando está abierto */
+            box-shadow: 0 4px 16px rgba(34, 197, 94, 0.25);
+            /* Sombra más pronunciada */
+        }
+
+        details.bg-green-50[open] summary {
+            justify-content: center;
+            /* Mantener centrado cuando está abierto */
+        }
+
+        /* Animación de apertura para el contenido */
+        details.bg-green-50[open] div {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.3s ease-out;
+            padding: 12px 16px;
+            /* Espaciado interno */
+            text-align: center;
+            /* Centrar texto del contenido */
+            margin-top: 60px;
+            /* Espacio para el summary */
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50">
+    <!-- Scroll progress bar -->
+    <div id="scroll-progress"></div>
+    <!-- Back to top -->
+    <button id="back-to-top" aria-label="Tornar amunt" title="Tornar amunt">
+        <i class="fas fa-chevron-up text-sm"></i>
+    </button>
+    <script>
+        // Executar immediatament per a restaurar scroll
+        (function () {
+            var returnScroll = sessionStorage.getItem('apemar_return_scroll');
+
+            if (returnScroll) {
+                // Prevenir scroll del navegador
+                if ('scrollRestoration' in history) {
+                    history.scrollRestoration = 'manual';
+                }
+
+                // Ocultar página inmediatamente
+                document.documentElement.style.opacity = '0';
+                document.body.style.opacity = '0';
+
+                // Restaurar scroll lo antes posible
+                var restoreScroll = function () {
+                    window.scrollTo(0, parseInt(returnScroll, 10));
+                    sessionStorage.removeItem('apemar_return_scroll');
+
+                    // Mostrar página
+                    document.documentElement.style.opacity = '1';
+                    document.body.style.opacity = '1';
+                    document.documentElement.style.transition = 'opacity 0.2s ease';
+                    document.body.style.transition = 'opacity 0.2s ease';
+                };
+
+                // Intentar restaurar inmediatamente y también en load
+                restoreScroll();
+                if (document.readyState === 'loading') {
+                    document.addEventListener('DOMContentLoaded', restoreScroll);
+                    window.addEventListener('load', restoreScroll);
+                }
+            }
+        })();
+    </script>
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed top-0 left-0 right-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <a href="#" onclick="window.scrollTo({top: 0, behavior: 'instant'});" class="flex items-center">
+                            <img src="fotos/apemar-logo.png" alt="APEMAR Logo" class="h-8 w-auto mr-2">
+                            <span class="text-xl font-bold text-gray-800">APEMAR</span>
+                        </a>
+                    </div>
+                    <div class="hidden md:ml-6 md:flex md:space-x-8">
+                        <a href="#inicio"
+                            class="nav-link text-gray-700 hover:text-green-600 px-3 py-2 text-sm font-medium click-animation">Inici</a>
+                        <a href="#serveis"
+                            class="nav-link text-gray-700 hover:text-green-600 px-3 py-2 text-sm font-medium click-animation">Serveis</a>
+                        <a href="#" id="nosotros-link"
+                            class="nav-link text-gray-700 hover:text-green-600 px-3 py-2 text-sm font-medium click-animation">Nosaltres</a>
+                        <a href="#calendario"
+                            class="nav-link text-gray-700 hover:text-green-600 px-3 py-2 text-sm font-medium click-animation">Calendari</a>
+                        <a href="#transparencia"
+                            class="nav-link text-gray-700 hover:text-green-600 px-3 py-2 text-sm font-medium click-animation">Transparència</a>
+                        <a href="#colaboradors"
+                            class="nav-link text-gray-700 hover:text-green-600 px-3 py-2 text-sm font-medium click-animation">Col·laboradors</a>
+                        <a href="#contacte"
+                            class="nav-link text-gray-700 hover:text-green-600 px-3 py-2 text-sm font-medium click-animation">Contacte</a>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <button class="md:hidden mobile-menu-button">
+                        <i class="fas fa-bars text-gray-700 text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Menú mòbil -->
+        <div class="hidden mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t">
+                <a href="#inicio"
+                    class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-green-600 click-animation">Inici</a>
+                <a href="#serveis"
+                    class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-green-600 click-animation">Serveis</a>
+                <a href="#dades-programa"
+                    class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-green-600 click-animation">Nosaltres</a>
+                <a href="#calendario"
+                    class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-green-600 click-animation">Calendari</a>
+                <a href="#transparencia"
+                    class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-green-600 click-animation">Transparència</a>
+                <a href="#colaboradors"
+                    class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-green-600 click-animation">Col·laboradors</a>
+                <a href="#contacte"
+                    class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-green-600 click-animation">Contacte</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="relative text-white py-32"
+        style="background-image: url('fotos/foto 1.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; min-height: 80vh;">
+        <div
+            class="absolute inset-0 bg-gradient-to-br from-green-800/85 via-green-700/80 to-green-600/75 flex items-center justify-center">
+            <div class="text-center fade-in max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+                <span class="hero-badge">Albalat de la Ribera · València</span>
+                <h1 class="text-5xl md:text-7xl font-bold mb-6 drop-shadow-lg"
+                    style="font-family:'Playfair Display',Georgia,serif; letter-spacing:-0.02em;">
+                    APEMAR
+                </h1>
+                <p class="text-xl md:text-2xl mb-4 max-w-3xl mx-auto opacity-95 leading-relaxed"
+                    style="font-family:'Nunito',sans-serif;">
+                    Servei de Promoció de l'Autonomia Personal i Atenció a la Dependència
+                </p>
+                <p class="text-base md:text-lg mb-6 max-w-2xl mx-auto opacity-80"
+                    style="font-family:'Nunito',sans-serif;">
+                    9 àrees terapèutiques · Model ACP · Equip multidisciplinari
+                </p>
+                <div class="mb-10">
+                    <span
+                        class="inline-block bg-white/20 border border-white/50 text-white text-sm font-semibold px-5 py-2 rounded-full backdrop-blur-sm"
+                        style="font-family:'Nunito',sans-serif;">
+                        <i class="fas fa-certificate mr-2 text-yellow-300"></i>Servei acreditat · Llei de la Dependència
+                        N-5263
+                    </span>
+                </div>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#serveis"
+                        class="bg-white text-green-700 px-8 py-3 rounded-full font-bold hover:bg-green-50 transition duration-300 transform hover:scale-105 btn-animation click-animation shadow-lg"
+                        style="font-family:'Nunito',sans-serif;">
+                        <i class="fas fa-th-large mr-2"></i>Vore Serveis
+                    </a>
+                    <a href="#contacte"
+                        class="border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-green-700 transition duration-300 transform hover:scale-105 btn-animation click-animation"
+                        style="font-family:'Nunito',sans-serif;">
+                        <i class="fas fa-envelope mr-2"></i>Contactar
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="serveis" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <p class="text-green-600 font-semibold uppercase tracking-widest text-sm mb-3"
+                    style="font-family:'Nunito',sans-serif;">El que oferim</p>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4 section-title">Els Nostres Serveis
+                    Especialitzats</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto mt-6" style="font-family:'Nunito',sans-serif;">
+                    Programa d'atenció integral amb 9 àrees especialitzades per a persones en situació de dependència i
+                    les seues famílies
+                </p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <a href="#" onclick="abrirModalServicio('adaptacion'); return false;"
+                    class="card-hover bg-white p-8 rounded-xl shadow-lg border border-gray-100 block click-animation">
+                    <div class="mb-4">
+                        <img src="fotos/adaptacion.jpg" alt="Adaptació i Acollida"
+                            class="w-full h-48 object-cover rounded-lg mb-4">
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Adaptació i Acollida</h3>
+                    <p class="text-gray-600 mb-4">
+                        Facilitem una adaptació progressiva i positiva amb plans individualitzats, coordinació familiar
+                        i seguiment personalitzat.
+                    </p>
+                    <span class="text-green-600 font-semibold hover:text-green-700">Llegir més →</span>
+                </a>
+                <a href="#" onclick="abrirModalServicio('emocional'); return false;"
+                    class="card-hover bg-white p-8 rounded-xl shadow-lg border border-gray-100 block click-animation">
+                    <div class="mb-4">
+                        <img src="fotos/areaemocional2.jpg" alt="Àrea Emocional i Psicològica"
+                            class="w-full h-48 object-cover rounded-lg mb-4">
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Àrea Emocional i Psicològica</h3>
+                    <p class="text-gray-600 mb-4">
+                        Suport emocional individual, sessions de reminiscència, activitats grupals i seguiment del
+                        benestar psicològic.
+                    </p>
+                    <span class="text-green-600 font-semibold hover:text-green-700">Llegir més →</span>
+                </a>
+                <a href="#" onclick="abrirModalServicio('cognitiva'); return false;"
+                    class="card-hover bg-white p-8 rounded-xl shadow-lg border border-gray-100 block click-animation">
+                    <div class="mb-4">
+                        <img src="fotos/la foto.jpg" alt="Àrea Cognitiva i Estimulació"
+                            class="w-full h-48 object-cover rounded-lg mb-4">
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Àrea Cognitiva i Estimulació</h3>
+                    <p class="text-gray-600 mb-4">
+                        Tallers diaris d'estimulació cognitiva, exercicis de memòria, atenció, llenguatge i orientació a
+                        la realitat.
+                    </p>
+                    <span class="text-green-600 font-semibold hover:text-green-700">Llegir més →</span>
+                </a>
+                <a href="#" onclick="abrirModalServicio('fisica'); return false;"
+                    class="card-hover bg-white p-8 rounded-xl shadow-lg border border-gray-100 block click-animation">
+                    <div class="mb-4">
+                        <img src="fotos/foto cominant.jpg" alt="Àrea Física i Funcional"
+                            class="w-full h-48 object-cover rounded-lg mb-4">
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Àrea Física i Funcional</h3>
+                    <p class="text-gray-600 mb-4">
+                        Gimnàstica suau diària, entrenament de mobilitat, exercicis d'equilibri i prevenció de caigudes
+                        amb supervisió constant.
+                    </p>
+                    <span class="text-green-600 font-semibold hover:text-green-700">Llegir més →</span>
+                </a>
+                <a href="#" onclick="abrirModalServicio('higiene'); return false;"
+                    class="card-hover bg-white p-8 rounded-xl shadow-lg border border-gray-100 block click-animation">
+                    <div class="mb-4">
+                        <img src="fotos/hogiene2.jpg" alt="Àrea d'Higiene i Cura Personal"
+                            class="w-full h-48 object-cover rounded-lg mb-4">
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Àrea d'Higiene i Cura Personal</h3>
+                    <p class="text-gray-600 mb-4">
+                        Suport respectuós en higiene diària, preservació de la intimitat, foment de l'autonomia i cura
+                        de la imatge personal.
+                    </p>
+                    <span class="text-green-600 font-semibold hover:text-green-700">Llegir més →</span>
+                </a>
+                <a href="#" onclick="abrirModalServicio('social'); return false;"
+                    class="card-hover bg-white p-8 rounded-xl shadow-lg border border-gray-100 block click-animation">
+                    <div class="mb-4">
+                        <img src="fotos/areasocial2.jpg" alt="Àrea Social i Relacional"
+                            class="w-full h-48 object-cover rounded-lg mb-4">
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Àrea Social i Relacional</h3>
+                    <p class="text-gray-600 mb-4">
+                        Activitats grupals, celebracions, tallers socials, voluntariat i foment de relacions
+                        interpersonals positives.
+                    </p>
+                    <span class="text-green-600 font-semibold hover:text-green-700">Llegir més →</span>
+                </a>
+                <a href="#" onclick="abrirModalServicio('ludica'); return false;"
+                    class="card-hover bg-white p-8 rounded-xl shadow-lg border border-gray-100 block click-animation">
+                    <div class="mb-4">
+                        <img src="fotos/cunant1.png" alt="Àrea Lúdica i Ocupacional"
+                            class="w-full h-48 object-cover rounded-lg mb-4">
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Àrea Lúdica i Ocupacional</h3>
+                    <p class="text-gray-600 mb-4">
+                        Tallers de música, manualitats, jardineria, cuina, jocs de taula i activitats basades en
+                        interessos personals.
+                    </p>
+                    <span class="text-green-600 font-semibold hover:text-green-700">Llegir més →</span>
+                </a>
+                <a href="#" onclick="abrirModalServicio('espiritual'); return false;"
+                    class="card-hover bg-white p-8 rounded-xl shadow-lg border border-gray-100 block click-animation">
+                    <div class="mb-4">
+                        <img src="fotos/iglesia1.jpg" alt="Àrea Espiritual i Valors"
+                            class="w-full h-48 object-cover rounded-lg mb-4">
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Àrea Espiritual i Valors</h3>
+                    <p class="text-gray-600 mb-4">
+                        Accés a pràctiques religioses, espais de meditació, respecte a creences personals i
+                        acompanyament en moments de dol.
+                    </p>
+                    <span class="text-green-600 font-semibold hover:text-green-700">Llegir més →</span>
+                </a>
+                <a href="#" onclick="abrirModalServicio('alimentacion'); return false;"
+                    class="card-hover bg-white p-8 rounded-xl shadow-lg border border-gray-100 block click-animation">
+                    <div class="mb-4">
+                        <img src="fotos/alimentacio2.jpg" alt="Àrea d'Alimentació i Nutrició"
+                            class="w-full h-48 object-cover rounded-lg mb-4">
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Àrea d'Alimentació i Nutrició</h3>
+                    <p class="text-gray-600 mb-4">
+                        Dietes adaptades, control nutricional, supervisió de la deglució i coordinació d'hàbits
+                        alimentaris amb la família.
+                    </p>
+                    <span class="text-green-600 font-semibold hover:text-green-700">Llegir més →</span>
+                </a>
+                <a href="#" onclick="abrirModalEnvejecimientoActivo(); return false;"
+                    class="card-hover bg-white p-8 rounded-xl shadow-lg border border-gray-100 block click-animation">
+                    <div class="mb-4">
+                        <img src="fotos/activo1.jpg" alt="Envelliment Actiu"
+                            class="w-full h-48 object-cover rounded-lg mb-4">
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Envelliment Actiu</h3>
+                    <p class="text-gray-600 mb-4">
+                        Tallers i activitats per a persones que desitjen mantindre's actives, saludables i socialment
+                        connectades.
+                    </p>
+                    <span class="text-green-600 font-semibold hover:text-green-700">Llegir més →</span>
+                </a>
+                <!-- Carrusel simple -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                    <div class="relative h-80 bg-gray-100">
+                        <img id="carouselImg" src="fotos/envejecimiento-activo.jpg" alt="Actividades APEMAR"
+                            class="w-full h-full object-cover"
+                            style="image-rendering: auto; -webkit-font-smoothing: antialiased;">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent">
+                        </div>
+                        <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
+                            <h3 class="text-2xl font-bold mb-2">El Nostre Dia a Dia</h3>
+                            <p class="text-sm opacity-90">Una ullada a les activitats i moments especials a APEMAR</p>
+                        </div>
+                    </div>
+                    <div class="p-4 bg-gray-50">
+                        <div class="flex items-center justify-between text-sm text-gray-600">
+                            <div class="flex items-center space-x-2">
+                                <i class="fas fa-heart text-red-500"></i>
+                                <span>Moments que enamoren el cor</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <div class="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
+                                <span>Sempre amb tu</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Botón del menú a la derecha del carrusel -->
+                <div class="mt-4 text-center">
+                    <button onclick="abrirMenuMensual()"
+                        class="bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition duration-300 transform hover:scale-105 click-animation">
+                        <i class="fas fa-utensils mr-2"></i>El Nostre Menú
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Horarios Section -->
+    <section id="horarios" class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <!-- Contenido vacío o eliminar sección completamente -->
+        </div>
+    </section>
+
+    <!-- Dades del Programa 2025 -->
+    <section id="dades-programa" class="pb-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Estadístiques i Àrees -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h3 class="text-3xl font-bold text-gray-800 mb-6">Dades del Programa</h3>
+                    <p class="text-lg text-gray-600 mb-4">
+                        Servei de Promoció de l'Autonomia Personal i Atenció a la Dependència amb capacitat per a
+                        atendre fins a 40 persones usuàries i les seues famílies de forma estable, amb un equip
+                        multidisciplinari especialitzat en malalties neurodegeneratives.
+                    </p>
+                    <div
+                        class="inline-flex items-center bg-green-50 border border-green-200 rounded-full px-5 py-2 mb-8">
+                        <i class="fas fa-certificate text-green-600 mr-2"></i>
+                        <span class="text-green-800 text-sm font-semibold">Servei acreditat en les ajudes de la Llei de
+                            la Dependència N-5263</span>
+                    </div>
+                    <div class="grid grid-cols-1 gap-6">
+                        <div class="text-center">
+                            <h4 class="text-3xl font-bold text-green-600 mb-2">9-17h</h4>
+                            <p class="text-gray-600">L-V (Festius tancat)</p>
+                            <div class="mt-4">
+                                <button onclick="abrirModalServiciosPrograma()"
+                                    class="bg-gradient-to-r from-green-600 to-green-700 text-white px-6 py-3 rounded-full font-semibold hover:from-green-700 hover:to-green-800 transition duration-300 transform hover:scale-105 shadow-lg click-animation">
+                                    <i class="fas fa-info-circle mr-2"></i>
+                                    Coneix Tot Sobre APEMAR
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gradient-to-br from-green-500 to-green-700 rounded-2xl p-8 text-white">
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="text-center card-hover p-4 rounded-lg">
+                            <i class="fas fa-users text-3xl mb-3"></i>
+                            <h4 class="font-semibold">Equip Multidisciplinari</h4>
+                        </div>
+                        <div class="text-center card-hover p-4 rounded-lg">
+                            <i class="fas fa-brain text-3xl mb-3"></i>
+                            <h4 class="font-semibold">Especialització Demències</h4>
+                        </div>
+                        <div class="text-center card-hover p-4 rounded-lg">
+                            <i class="fas fa-heart text-3xl mb-3"></i>
+                            <h4 class="font-semibold">Model ACP</h4>
+                        </div>
+                        <div class="text-center card-hover p-4 rounded-lg">
+                            <i class="fas fa-vr-cardboard text-3xl mb-3"></i>
+                            <h4 class="font-semibold">Realitat Virtual</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calendario Section -->
+    <section id="calendario" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <p class="text-green-600 font-semibold uppercase tracking-widest text-sm mb-3"
+                    style="font-family:'Nunito',sans-serif;">Horaris i obertura</p>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4 section-title">Calendari d'Apertura <span
+                        id="yearActual"></span></h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto mt-6" style="font-family:'Nunito',sans-serif;">
+                    Consulta els dies que el centre està obert i tancat
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <!-- Enero -->
+                <div class="bg-white rounded-lg shadow-lg p-4 card-hover">
+                    <h4 class="text-sm font-semibold text-gray-800 mb-2 text-center">Gener</h4>
+                    <div id="diasEnero" class="grid grid-cols-7 gap-px text-xs">
+                        <!-- Los días se generarán con JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Febrero -->
+                <div class="bg-white rounded-lg shadow-lg p-4 card-hover">
+                    <h4 class="text-sm font-semibold text-gray-800 mb-2 text-center">Febrer</h4>
+                    <div id="diasFebrero" class="grid grid-cols-7 gap-px text-xs">
+                        <!-- Los días se generarán con JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Marzo -->
+                <div class="bg-white rounded-lg shadow-lg p-4 card-hover">
+                    <h4 class="text-sm font-semibold text-gray-800 mb-2 text-center">Març</h4>
+                    <div id="diasMarzo" class="grid grid-cols-7 gap-px text-xs">
+                        <!-- Los días se generarán con JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Abril -->
+                <div class="bg-white rounded-lg shadow-lg p-4 card-hover">
+                    <h4 class="text-sm font-semibold text-gray-800 mb-2 text-center">Abril</h4>
+                    <div id="diasAbril" class="grid grid-cols-7 gap-px text-xs">
+                        <!-- Los días se generarán con JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Mayo -->
+                <div class="bg-white rounded-lg shadow-lg p-4 card-hover">
+                    <h4 class="text-sm font-semibold text-gray-800 mb-2 text-center">Maig</h4>
+                    <div id="diasMayo" class="grid grid-cols-7 gap-px text-xs">
+                        <!-- Los días se generarán con JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Junio -->
+                <div class="bg-white rounded-lg shadow-lg p-4 card-hover">
+                    <h4 class="text-sm font-semibold text-gray-800 mb-2 text-center">Juny</h4>
+                    <div id="diasJunio" class="grid grid-cols-7 gap-px text-xs">
+                        <!-- Los días se generarán con JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Julio -->
+                <div class="bg-white rounded-lg shadow-lg p-4 card-hover">
+                    <h4 class="text-sm font-semibold text-gray-800 mb-2 text-center">Juliol</h4>
+                    <div id="diasJulio" class="grid grid-cols-7 gap-px text-xs">
+                        <!-- Los días se generarán con JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Agosto -->
+                <div class="bg-white rounded-lg shadow-lg p-4 card-hover">
+                    <h4 class="text-sm font-semibold text-gray-800 mb-2 text-center">Agost</h4>
+                    <div id="diasAgosto" class="grid grid-cols-7 gap-px text-xs">
+                        <!-- Los días se generarán con JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Septiembre -->
+                <div class="bg-white rounded-lg shadow-lg p-4 card-hover">
+                    <h4 class="text-sm font-semibold text-gray-800 mb-2 text-center">Setembre</h4>
+                    <div id="diasSeptiembre" class="grid grid-cols-7 gap-px text-xs">
+                        <!-- Los días se generarán con JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Octubre -->
+                <div class="bg-white rounded-lg shadow-lg p-4 card-hover">
+                    <h4 class="text-sm font-semibold text-gray-800 mb-2 text-center">Octubre</h4>
+                    <div id="diasOctubre" class="grid grid-cols-7 gap-px text-xs">
+                        <!-- Los días se generarán con JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Noviembre -->
+                <div class="bg-white rounded-lg shadow-lg p-4 card-hover">
+                    <h4 class="text-sm font-semibold text-gray-800 mb-2 text-center">Novembre</h4>
+                    <div id="diasNoviembre" class="grid grid-cols-7 gap-px text-xs">
+                        <!-- Los días se generarán con JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Diciembre -->
+                <div class="bg-white rounded-lg shadow-lg p-4 card-hover">
+                    <h4 class="text-sm font-semibold text-gray-800 mb-2 text-center">Desembre</h4>
+                    <div id="diasDiciembre" class="grid grid-cols-7 gap-px text-xs">
+                        <!-- Los días se generarán con JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Transparencia Section -->
+    <section id="transparencia" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <p class="text-green-600 font-semibold uppercase tracking-widest text-sm mb-3"
+                    style="font-family:'Nunito',sans-serif;">Rendició de comptes</p>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4 section-title">Transparència</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto mb-8 mt-6" style="font-family:'Nunito',sans-serif;">
+                    Compromís amb la transparència i la rendició de comptes en la nostra gestió
+                </p>
+            </div>
+
+            <!-- Botons de navegació -->
+            <div class="flex flex-wrap justify-center gap-4 mb-12">
+                <button onclick="showTransparenciaSubapartado('memorias')"
+                    class="transparencia-btn active bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 hover:text-white transition duration-300">
+                    Memories Anuals
+                </button>
+                <button onclick="showTransparenciaSubapartado('balance')"
+                    class="transparencia-btn bg-white text-gray-800 px-6 py-3 rounded-lg font-semibold hover:bg-green-700 hover:text-white transition duration-300 shadow-lg">
+                    Balanç Econòmic
+                </button>
+                <button onclick="showTransparenciaSubapartado('subvenciones')"
+                    class="transparencia-btn bg-white text-gray-800 px-6 py-3 rounded-lg font-semibold hover:bg-green-700 hover:text-white transition duration-300 shadow-lg">
+                    Subvencions i Ajudes Públiques
+                </button>
+            </div>
+
+            <!-- Contingut dels subapartats -->
+            <div id="transparencia-content" class="bg-white rounded-2xl shadow-lg p-8">
+
+                <!-- Memories Anuals -->
+                <div id="memorias-content" class="transparencia-content hidden">
+                    <div class="text-center mb-8">
+                        <i class="fas fa-book text-4xl text-green-600 mb-4"></i>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">Memories Anuals Publicades</h3>
+                    </div>
+
+                    <!-- Documents Disponibles -->
+                    <div class="mb-8">
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <!-- Els documents es carregaran dinàmicament des del CSV -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Balanç Econòmic -->
+                <div id="balance-content" class="transparencia-content hidden">
+                    <div class="text-center mb-8">
+                        <i class="fas fa-calculator text-4xl text-green-600 mb-4"></i>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">Balanços Publicats</h3>
+                    </div>
+
+                    <!-- Documents Disponibles -->
+                    <div class="mb-8">
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <!-- Els documents es carregaran dinàmicament des del CSV -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Subvencions i Ajudes Públiques -->
+                <div id="subvenciones-content" class="transparencia-content hidden">
+                    <div class="text-center mb-8">
+                        <i class="fas fa-hand-holding-usd text-4xl text-green-600 mb-4"></i>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">Subvencions i Ajudes Públiques</h3>
+                    </div>
+
+                    <!-- Documents Disponibles -->
+                    <div class="mb-8">
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <!-- Les subvencions es carregaran dinàmicament des del CSV -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+
+    <!-- Col·laboradors Section -->
+    <section id="colaboradors" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <p class="text-green-600 font-semibold uppercase tracking-widest text-sm mb-3"
+                    style="font-family:'Nunito',sans-serif;">Institucions aliades</p>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4 section-title">Col·laboradors</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto mt-6" style="font-family:'Nunito',sans-serif;">
+                    Agraïm el suport de les institucions i autoritats que col·laboren amb el nostre projecte
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Ayuntamiento de Albalat de la Ribera -->
+                <div class="collab-card bg-gray-50 p-8 rounded-xl text-center shadow-md hover:shadow-xl">
+                    <div class="mb-6 flex items-center justify-center h-24">
+                        <img src="fotos/ayuntamiento.JPG" alt="Ajuntament d'Albalat de la Ribera"
+                            class="max-h-24 mx-auto object-contain">
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Ajuntament d'Albalat de la Ribera</h3>
+                </div>
+
+                <!-- Generalitat Valenciana -->
+                <div class="collab-card bg-gray-50 p-8 rounded-xl text-center shadow-md hover:shadow-xl">
+                    <div class="mb-6 flex items-center justify-center h-24">
+                        <img src="fotos/conselleria.jpg" alt="Generalitat Valenciana"
+                            class="max-h-24 mx-auto object-contain">
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Generalitat Valenciana</h3>
+                </div>
+
+                <!-- Diputació de València -->
+                <div class="collab-card bg-gray-50 p-8 rounded-xl text-center shadow-md hover:shadow-xl">
+                    <div class="mb-6 flex items-center justify-center h-24">
+                        <img src="fotos/dipotacio de valencia acces local.webp" alt="Diputació de València accés local"
+                            class="max-h-24 mx-auto object-contain">
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Diputació de València</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contacte Section -->
+    <section id="contacte" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <p class="text-green-600 font-semibold uppercase tracking-widest text-sm mb-3"
+                    style="font-family:'Nunito',sans-serif;">Estem ací</p>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4 section-title">Contacte</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto mt-6" style="font-family:'Nunito',sans-serif;">
+                    Tens preguntes sobre els nostres serveis? Estem ací per a ajudar-te
+                </p>
+            </div>
+
+            <!-- Targetes d'Informació de Contacte -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                <!-- Targeta d'Ubicació -->
+                <div class="bg-gray-50 p-6 rounded-xl text-center card-hover">
+                    <div class="text-green-600 mb-4">
+                        <i class="fas fa-map-marker-alt text-3xl"></i>
+                    </div>
+                    <h3 class="font-semibold text-gray-800 mb-2">Direcció</h3>
+                    <p class="text-gray-600">Albalat de la Ribera, València</p>
+                </div>
+
+                <!-- Targeta de Telèfon -->
+                <div class="bg-gray-50 p-6 rounded-xl text-center card-hover">
+                    <div class="text-green-600 mb-4">
+                        <i class="fas fa-phone text-3xl"></i>
+                    </div>
+                    <h3 class="font-semibold text-gray-800 mb-2">Telèfon</h3>
+                    <p class="text-gray-600">+34 651 046 014</p>
+                </div>
+
+                <!-- Targeta d'Email -->
+                <div class="bg-gray-50 p-6 rounded-xl text-center card-hover">
+                    <div class="text-green-600 mb-4">
+                        <i class="fas fa-envelope text-3xl"></i>
+                    </div>
+                    <h3 class="font-semibold text-gray-800 mb-2">Email</h3>
+                    <p class="text-gray-600"><a href="/cdn-cgi/l/email-protection" class="__cf_email__"
+                            data-cfemail="f09180959d9182de999e969fb0979d91999cde939f9d">[email&#160;protected]</a></p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+                <!-- Botons d'Email i Ubicació -->
+                <div class="text-center lg:text-left">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4">Contacte ràpid</h3>
+                    <p class="text-gray-600 mb-6">
+                        Fes clic en els botons per a contactar-nos o veure'ns en el mapa
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="https://mail.google.com/mail/?view=cm&to=apemar.info@gmail.com&subject=Consulta%20desde%20web%20APEMAR&body=Hola%2C%20m'agradaria%20rebre%20m%C3%A9s%20informaci%C3%B3%20sobre%20els%20seus%20serveis."
+                            target="_blank"
+                            class="inline-block bg-green-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-green-700 transition duration-300 transform hover:scale-105 btn-animation click-animation">
+                            <i class="fas fa-envelope mr-2"></i>
+                            Enviar Email
+                        </a>
+                        <a href="https://www.google.com/maps?q=39.2021389,-0.3891111" target="_blank"
+                            class="inline-block bg-green-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-green-700 transition duration-300 transform hover:scale-105 btn-animation click-animation">
+                            <i class="fas fa-map-marker-alt mr-2"></i>
+                            Vore en Google Maps
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Social Media -->
+                <div class="text-center">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4">Segueix-nos en xarxes socials</h3>
+                    <p class="text-gray-600 mb-6">
+                        Mantén-te informat sobre les nostres activitats i notícies
+                    </p>
+                    <div class="flex justify-center space-x-6">
+                        <a href="https://www.facebook.com/apemaralbalat" target="_blank"
+                            class="social-icon facebook bg-blue-600 text-white w-12 h-12 rounded-full flex items-center justify-center hover:bg-blue-700 transition click-animation">
+                            <i class="fab fa-facebook text-xl"></i>
+                        </a>
+                        <a href="https://www.instagram.com/apemar_albalat" target="_blank"
+                            class="social-icon instagram bg-pink-600 text-white w-12 h-12 rounded-full flex items-center justify-center hover:bg-pink-700 transition click-animation">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                        <a href="https://www.youtube.com/channel/UC-h_YSBAJfajyCf-R1z6rjQ" target="_blank"
+                            class="social-icon youtube bg-red-600 text-white w-12 h-12 rounded-full flex items-center justify-center hover:bg-red-700 transition click-animation">
+                            <i class="fab fa-youtube text-xl"></i>
+                        </a>
+                        <a href="https://www.tiktok.com/@apemar_albalat" target="_blank"
+                            class="social-icon tiktok bg-gray-900 text-white w-12 h-12 rounded-full flex items-center justify-center hover:bg-gray-800 transition click-animation">
+                            <i class="fab fa-tiktok text-xl"></i>
+                        </a>
+                        <a href="https://x.com/APEMAR_ALBALAT" target="_blank"
+                            class="social-icon twitter bg-sky-500 text-white w-12 h-12 rounded-full flex items-center justify-center hover:bg-sky-600 transition click-animation">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-14" style="font-family:'Nunito',sans-serif;">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-10">
+                <div>
+                    <div class="flex flex-col items-start mb-4">
+                        <img src="fotos/apemar-logo.png" alt="APEMAR Logo" class="h-9 w-auto mr-2 mb-2">
+                        <span class="text-xl font-bold" style="font-family:'Playfair Display',serif;">APEMAR</span>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Servei de Promoció de l'Autonomia Personal i Atenció a la Dependència a Albalat de la Ribera.
+                        Servei acreditat en les ajudes de la Llei de la Dependència N-5263.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-5 text-white" style="font-family:'Playfair Display',serif;">Accesos ràpids
+                    </h4>
+                    <ul class="space-y-2.5 text-left">
+                        <li><a href="#inicio" class="text-gray-400 hover:text-green-400 transition text-sm">Inici</a>
+                        </li>
+                        <li><a href="#serveis" class="text-gray-400 hover:text-green-400 transition text-sm">Serveis</a>
+                        </li>
+                        <li><a href="#dades-programa"
+                                class="text-gray-400 hover:text-green-400 transition text-sm">Nosaltres</a></li>
+                        <li><a href="#colaboradors"
+                                class="text-gray-400 hover:text-green-400 transition text-sm">Col·laboradors</a></li>
+                        <li><a href="#transparencia"
+                                class="text-gray-400 hover:text-green-400 transition text-sm">Transparència</a></li>
+                        <li><a href="#contacte"
+                                class="text-gray-400 hover:text-green-400 transition text-sm">Contacte</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-5 text-white" style="font-family:'Playfair Display',serif;">Legal i
+                        informació</h4>
+                    <ul class="space-y-2.5 text-left">
+                        <li><a href="politica-privacidad.html"
+                                class="text-gray-400 hover:text-green-400 transition text-sm">Política de Privacitat</a>
+                        </li>
+                        <li><a href="politica-cookies.html"
+                                class="text-gray-400 hover:text-green-400 transition text-sm">Política de Cookies</a>
+                        </li>
+                        <li><a href="aviso-legal.html"
+                                class="text-gray-400 hover:text-green-400 transition text-sm">Avís Legal</a></li>
+                    </ul>
+                    <div class="mt-6 p-4 bg-white/5 rounded-xl border border-white/10">
+                        <p class="text-xs text-gray-500 mb-1"><i class="fas fa-map-marker-alt text-green-500 mr-1"></i>
+                            Gran Vía País Valencià 33</p>
+                        <p class="text-xs text-gray-500 mb-1"><i class="fas fa-phone text-green-500 mr-1"></i> +34 651
+                            046 014</p>
+                        <p class="text-xs text-gray-500"><i class="fas fa-envelope text-green-500 mr-1"></i> <a
+                                href="/cdn-cgi/l/email-protection" class="__cf_email__"
+                                data-cfemail="ef8e9f8a828e9dc186818980af88828e8683c18c8082">[email&#160;protected]</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-7 flex flex-col sm:flex-row justify-between items-center gap-3">
+                <p class="text-gray-500 text-sm">&copy; 2026 APEMAR. Tots els drets reservats.</p>
+                <p class="text-gray-600 text-xs">Associació de Persones Majors d'Albalat de la Ribera · CIF G98941396
+                </p>
+            </div>
+        </div>
+    </footer>
+    <!-- Modal de Servicios -->
+    <div id="servicioModal" class="fixed inset-0 bg-white z-50 hidden overflow-y-auto">
+        <!-- Navigation -->
+        <nav class="bg-white shadow-lg sticky top-0 z-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between h-16">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0 flex items-center">
+                            <a href="#" onclick="window.scrollTo({top: 0, behavior: 'instant'});"
+                                class="flex items-center">
+                                <img src="fotos/apemar-logo.png" alt="APEMAR Logo" class="h-8 w-auto mr-2">
+                                <span class="text-xl font-bold text-gray-800">APEMAR</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <!-- Botón de cerrar eliminado - ahora solo usa la X flotante -->
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="relative text-white py-16"
+            style="background-image: url('fotos/foto 1.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; min-height: 50vh;">
+            <!-- Overlay para asegurar legibilidad del texto -->
+            <div
+                class="absolute inset-0 bg-gradient-to-r from-green-600/80 to-green-700/80 flex items-center justify-center">
+                <div class="text-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+                    <div class="modal-titulo">
+                        <!-- El título se actualizará dinámicamente -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contenido del Servicio -->
+        <section class="py-20 bg-white relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="bg-gray-50 rounded-2xl p-8">
+                    <div class="modal-contenido scrollable-content">
+                        <!-- El contenido se actualizará dinámicamente -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+
+    <!-- Modal de Sobre APEMAR -->
+    <div id="serviciosProgramaModal" class="fixed inset-0 bg-white z-50 hidden">
+        <!-- Header del Modal -->
+        <div class="sticky top-0 bg-white border-b border-gray-200 p-6 z-10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-3xl font-bold text-gray-800">
+                        <i class="fas fa-info-circle text-green-600 mr-3"></i>
+                        Tot Sobre APEMAR
+                    </h2>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contenido del Modal - Sobre APEMAR Completo -->
+        <div class="py-20 bg-gray-50 overflow-y-auto scrollable-content" style="max-height: 100vh;">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Sobre APEMAR - Principal -->
+                <div class="text-center mb-16">
+                    <h3 class="text-4xl md:text-5xl font-bold text-gray-800 mb-6">Sobre APEMAR</h3>
+                    <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                        Som l'Associació de Persones Majors d'Albalat de la Ribera, un Servei de Promoció de l'Autonomia
+                        Personal i Atenció a la Dependència acreditat per a les ajudes de la Llei de la Dependència
+                        (N-5263).
+                    </p>
+                </div>
+
+                <!-- Qui Som -->
+                <div class="bg-white rounded-2xl shadow-xl p-8 md:p-12 mb-12">
+                    <div class="text-center mb-12">
+                        <h4 class="text-3xl font-bold text-green-600 mb-4">Qui Som</h4>
+                        <div class="w-24 h-1 bg-green-600 mx-auto mb-8"></div>
+                    </div>
+
+                    <!-- Història del Centre -->
+                    <div class="mb-16">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                            <div>
+                                <h5 class="text-2xl font-bold text-gray-800 mb-6">
+                                    <i class="fas fa-history text-green-600 mr-3"></i>
+                                    La nostra Història
+                                </h5>
+                                <p class="text-lg text-gray-600 mb-4">
+                                    L'Associació de Persones Majors d'Albalat de la Ribera (APEMAR) és una entitat sense
+                                    ànim de lucre constituïda en 2017, amb una trajectòria consolidada de programes
+                                    d'intervenció des de 2019. El nostre objectiu és promoure l'autonomia personal i
+                                    millorar la qualitat de vida de les persones en situació de dependència,
+                                    especialment amb malalties neurodegeneratives, des d'un enfocament comunitari,
+                                    inclusiu i basat en l'evidència.
+                                </p>
+                                <p class="text-lg text-gray-600 mb-4">
+                                    Durant la crisi de la COVID-19, organitzem accions comunitàries per a cobrir
+                                    necessitats bàsiques de persones majors. A causa de la DANA que va afectar greument
+                                    el centre ASFAL d'Algemesí, vam acollir temporalment (octubre 2024 a gener 2025)
+                                    quatre persones usuàries d'aquesta entitat, demostrant la nostra capacitat de
+                                    resposta i compromís ètic.
+                                </p>
+                                <p class="text-lg text-gray-600">
+                                    Avui en dia, som un servei acreditat de referència en l'atenció a la dependència a
+                                    la comarca, amb un equip professional dedicat i programes innovadors com la realitat
+                                    virtual que milloren la qualitat de vida de les nostres persones usuàries.
+                                </p>
+                            </div>
+                            <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-8">
+                                <div class="text-center">
+                                    <i class="fas fa-building text-6xl text-green-600 mb-4"></i>
+                                    <h6 class="text-xl font-semibold text-gray-800 mb-2">Servei Acreditat de Referència
+                                    </h6>
+                                    <p class="text-gray-600">Des de 2017 promovent l'autonomia personal</p>
+                                    <div class="mt-4 space-y-2">
+                                        <div class="flex justify-center items-center">
+                                            <i class="fas fa-map-marker-alt text-green-600 mr-2"></i>
+                                            <span class="text-sm text-black">Albalat de la Ribera</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Missió i Visió -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+                        <div class="bg-green-50 rounded-xl p-8">
+                            <h5 class="text-2xl font-bold text-green-800 mb-6">
+                                <i class="fas fa-bullseye text-green-600 mr-3"></i>
+                                Missió
+                            </h5>
+                            <p class="text-lg text-gray-700 leading-relaxed">
+                                Promoure el manteniment i millora de l'autonomia personal, el benestar integral i la
+                                qualitat de vida de les persones en situació de dependència mitjançant una atenció
+                                centrada en la persona, inclusiva, participativa i basada en l'evidència, fomentant al
+                                mateix temps la vinculació comunitària, la prevenció de l'aïllament i el suport actiu a
+                                les persones cuidadores, tot des d'una perspectiva de gènere i drets.
+                            </p>
+                        </div>
+                        <div class="bg-blue-50 rounded-xl p-8">
+                            <h5 class="text-2xl font-bold text-blue-800 mb-6">
+                                <i class="fas fa-eye text-blue-600 mr-3"></i>
+                                Visió
+                            </h5>
+                            <p class="text-lg text-gray-700 leading-relaxed">
+                                Ser un servei de referència en l'atenció a la dependència, reconegut per l'excel·lència
+                                en els nostres serveis, el respecte a la dignitat humana i la innovació en programes que
+                                milloren la qualitat de vida de les persones usuàries i les seues famílies, utilitzant
+                                tecnologies emergents com la realitat virtual i mantenint un enfocament basat en el
+                                model d'Atenció Centrada en la Persona Real.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Valores -->
+                    <div class="mb-16">
+                        <h5 class="text-2xl font-bold text-gray-800 mb-8 text-center">
+                            <i class="fas fa-heart text-green-600 mr-3"></i>
+                            Principis del Model ACP
+                        </h5>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <div
+                                class="text-center p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                                <i class="fas fa-hands-helping text-3xl text-red-600 mb-4"></i>
+                                <h6 class="font-semibold text-gray-800 mb-2">Empatia Autèntica</h6>
+                                <p class="text-gray-600 text-sm">Posar-se en el lloc de l'altre, veure el món amb els
+                                    seus ulls</p>
+                            </div>
+                            <div
+                                class="text-center p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                                <i class="fas fa-heart text-3xl text-red-600 mb-4"></i>
+                                <h6 class="font-semibold text-gray-800 mb-2">Acceptació Incondicional</h6>
+                                <p class="text-gray-600 text-sm">Acceptar a la persona tal com és, amb les seues pors i
+                                    dignitat</p>
+                            </div>
+                            <div
+                                class="text-center p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                                <i class="fas fa-user-check text-3xl text-red-600 mb-4"></i>
+                                <h6 class="font-semibold text-gray-800 mb-2">Autenticitat i Coherència</h6>
+                                <p class="text-gray-600 text-sm">Ser honest com a professional i actuar amb coherència
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Especialització en Demències i Alzheimer -->
+                    <div class="mb-16">
+                        <h5 class="text-2xl font-bold text-gray-800 mb-8 text-center">
+                            <i class="fas fa-brain text-purple-600 mr-3"></i>
+                            Especialització en Demències i Alzheimer
+                        </h5>
+                        <div class="bg-gradient-to-r from-purple-50 to-blue-50 rounded-xl p-8">
+                            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                                <div>
+                                    <h6 class="text-xl font-semibold text-purple-800 mb-4">Què és la Demència?</h6>
+                                    <p class="text-gray-700 mb-4">
+                                        Síndrome clínic caracteritzat per la deterioració de la funció cognitiva que
+                                        provoca incapacitat per a realitzar activitats de la vida diària. A APEMAR som
+                                        especialistes en l'abordatge integral de diferents tipus de demències, atenent a
+                                        les persones usuàries en el seu domicili habitual.
+                                    </p>
+
+                                    <h6 class="text-xl font-semibold text-purple-800 mb-4 mt-6">Tipus de Demències que
+                                        Tractem</h6>
+                                    <div class="space-y-3">
+                                        <div class="flex items-start">
+                                            <i class="fas fa-check-circle text-purple-600 mt-1 mr-3"></i>
+                                            <div class="text-black">
+                                                <strong>Malaltia d'Alzheimer:</strong> Acumulació de plaques de proteïna
+                                                beta-amiloide i ovills de proteïna TAU
+                                            </div>
+                                        </div>
+                                        <div class="flex items-start">
+                                            <i class="fas fa-check-circle text-purple-600 mt-1 mr-3"></i>
+                                            <div class="text-black">
+                                                <strong>Malaltia de Parkinson:</strong> Trastorn neurodegeneratiu crònic
+                                                del sistema nerviós
+                                            </div>
+                                        </div>
+                                        <div class="flex items-start">
+                                            <i class="fas fa-check-circle text-purple-600 mt-1 mr-3"></i>
+                                            <div class="text-black">
+                                                <strong>Demència Vascular:</strong> Flux sanguini reduït o bloquejat en
+                                                el cervell
+                                                <strong>Demència amb Cossos de Lewy:</strong> Acumulació de proteïnes
+                                                alfa-sinucleïna
+                                            </div>
+                                        </div>
+                                        <div class="flex items-start">
+                                            <i class="fas fa-check-circle text-purple-600 mt-1 mr-3"></i>
+                                            <div class="text-black">
+                                                <strong>Demència Frontotemporal:</strong> Deterioració de cèl·lules
+                                                nervioses en lòbuls frontals i temporals
+                                            </div>
+                                        </div>
+                                        <div class="flex items-start">
+                                            <i class="fas fa-check-circle text-purple-600 mt-1 mr-3"></i>
+                                            <div class="text-black">
+                                                <strong>Malaltia de Parkinson:</strong> Trastorn neurodegeneratiu crònic
+                                                del sistema nerviós
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <h6 class="text-xl font-semibold text-purple-800 mb-4">Model d'Intervenció ACP</h6>
+                                    <p class="text-gray-700 mb-4">
+                                        Utilitzem el <strong>Model d'Atenció Centrada en la Persona (ACP)</strong>,
+                                        reconegut com la millor pràctica en l'àmbit gerontològic. Aquest enfocament posa
+                                        a la persona al centre de la intervenció, escoltant les seues preferències,
+                                        respectant la seua trajectòria vital i promovent la seua autonomia des de la
+                                        dignitat i la participació activa.
+                                    </p>
+
+                                    <h6 class="text-xl font-semibold text-purple-800 mb-4 mt-6">Com Afecta a les
+                                        Famílies</h6>
+                                    <div class="grid grid-cols-2 gap-4">
+                                        <div class="bg-white p-3 rounded-lg">
+                                            <i class="fas fa-question-circle text-purple-600 mb-2"></i>
+                                            <p class="text-sm font-medium text-black">Incertesa i por al rebuig</p>
+                                        </div>
+                                        <div class="bg-white p-3 rounded-lg">
+                                            <i class="fas fa-exchange-alt text-purple-600 mb-2"></i>
+                                            <p class="text-sm font-medium text-black">Canvi de rol</p>
+                                        </div>
+                                        <div class="bg-white p-3 rounded-lg">
+                                            <i class="fas fa-sync text-purple-600 mb-2"></i>
+                                            <p class="text-sm font-medium text-black">Adaptació a noves situacions</p>
+                                        </div>
+                                        <div class="bg-white p-3 rounded-lg">
+                                            <i class="fas fa-heart text-purple-600 mb-2"></i>
+                                            <p class="text-sm font-medium text-black">Necessitat de suport emocional</p>
+                                        </div>
+                                        <div class="bg-white p-3 rounded-lg">
+                                            <i class="fas fa-weight-hanging text-purple-600 mb-2"></i>
+                                            <p class="text-sm font-medium text-black">Sobrecàrrega del cuidador</p>
+                                        </div>
+                                        <div class="bg-white p-3 rounded-lg flex items-center justify-center">
+                                            <button onclick="openConsejosFamiliesModal()"
+                                                class="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-6 rounded-lg transition-colors duration-200 w-full">
+                                                <i class="fas fa-users mr-2"></i>
+                                                Per a families
+                                            </button>
+                                        </div>
+                                        <!-- ... -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Estratègies i Recursos -->
+                    <div class="mb-16">
+                        <h5 class="text-2xl font-bold text-gray-800 mb-8 text-center">
+                            <i class="fas fa-lightbulb text-yellow-500 mr-3"></i>
+                            Estratègies i Recursos Terapèutics
+                        </h5>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <div class="bg-white border-l-4 border-yellow-500 rounded-lg p-6 shadow-md">
+                                <div class="flex items-center mb-4">
+                                    <div
+                                        class="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center mr-4">
+                                        <i class="fas fa-comments text-yellow-600 text-xl"></i>
+                                    </div>
+                                    <h6 class="font-semibold text-gray-800">Estratègies de Comunicació</h6>
+                                </div>
+                                <ul class="space-y-2 text-gray-600">
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check text-yellow-500 mt-1 mr-2 text-sm"></i>
+                                        <span>Llenguatge clar i senzill</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check text-yellow-500 mt-1 mr-2 text-sm"></i>
+                                        <span>Adaptar ritme i to de veu</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check text-yellow-500 mt-1 mr-2 text-sm"></i>
+                                        <span>Validar sentiments i emocions</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check text-yellow-500 mt-1 mr-2 text-sm"></i>
+                                        <span>Utilitzar gestos i expressions facials</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="bg-white border-l-4 border-green-500 rounded-lg p-6 shadow-md">
+                                <div class="flex items-center mb-4">
+                                    <div
+                                        class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4">
+                                        <i class="fas fa-hand-paper text-green-600 text-xl"></i>
+                                    </div>
+                                    <h6 class="font-semibold text-gray-800">Gestió de Comportaments</h6>
+                                </div>
+                                <ul class="space-y-2 text-gray-600">
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check text-green-500 mt-1 mr-2 text-sm"></i>
+                                        <span>Identificar desencadenants</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check text-green-500 mt-1 mr-2 text-sm"></i>
+                                        <span>Tècniques de redirecció</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check text-green-500 mt-1 mr-2 text-sm"></i>
+                                        <span>Entorn segur i estructurat</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check text-green-500 mt-1 mr-2 text-sm"></i>
+                                        <span>Cercar professionals quan siga necessari</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="bg-white border-l-4 border-blue-500 rounded-lg p-6 shadow-md">
+                                <div class="flex items-center mb-4">
+                                    <div
+                                        class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                                        <i class="fas fa-universal-access text-blue-600 text-xl"></i>
+                                    </div>
+                                    <h6 class="font-semibold text-gray-800">Foment de l'Autonomia</h6>
+                                </div>
+                                <ul class="space-y-2 text-gray-600">
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check text-blue-500 mt-1 mr-2 text-sm"></i>
+                                        <span>Participació en activitats significatives</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check text-blue-500 mt-1 mr-2 text-sm"></i>
+                                        <span>Adaptar l'entorn</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check text-blue-500 mt-1 mr-2 text-sm"></i>
+                                        <span>Estímul i suport funcional</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check text-blue-500 mt-1 mr-2 text-sm"></i>
+                                        <span>Mantindre activitats diàries</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Programes Terapèutics -->
+                    <div class="mb-16">
+                        <h5 class="text-2xl font-bold text-gray-800 mb-8 text-center">
+                            <i class="fas fa-heartbeat text-red-500 mr-3"></i>
+                            Programes Terapèutics Especialitzats
+                        </h5>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                            <div
+                                class="bg-gradient-to-br from-purple-100 to-purple-50 rounded-xl p-6 text-center hover:shadow-lg transition-shadow">
+                                <i class="fas fa-brain text-3xl text-purple-600 mb-4"></i>
+                                <h6 class="font-semibold text-gray-800 mb-2">Rehabilitació Cognitiva</h6>
+                                <p class="text-sm text-gray-600">"Despertant Capacitats"</p>
+                                <p class="text-xs text-gray-500 mt-2">Fortaleix memòria, atenció i raonament</p>
+                            </div>
+
+                            <div
+                                class="bg-gradient-to-br from-green-100 to-green-50 rounded-xl p-6 text-center hover:shadow-lg transition-shadow">
+                                <i class="fas fa-running text-3xl text-green-600 mb-4"></i>
+                                <h6 class="font-semibold text-gray-800 mb-2">Rehabilitació Física</h6>
+                                <p class="text-sm text-gray-600">"En Forma!"</p>
+                                <p class="text-xs text-gray-500 mt-2">Millora mobilitat i força muscular</p>
+                            </div>
+
+                            <div
+                                class="bg-gradient-to-br from-blue-100 to-blue-50 rounded-xl p-6 text-center hover:shadow-lg transition-shadow">
+                                <i class="fas fa-smile text-3xl text-blue-600 mb-4"></i>
+                                <h6 class="font-semibold text-gray-800 mb-2">Oci Inclusiu</h6>
+                                <p class="text-sm text-gray-600">Activitats recreatives</p>
+                                <p class="text-xs text-gray-500 mt-2">Fomenta participació i connexió social</p>
+                            </div>
+
+                            <div
+                                class="bg-gradient-to-br from-orange-100 to-orange-50 rounded-xl p-6 text-center hover:shadow-lg transition-shadow">
+                                <i class="fas fa-puzzle-piece text-3xl text-orange-600 mb-4"></i>
+                                <h6 class="font-semibold text-gray-800 mb-2">Teràpia Ocupacional</h6>
+                                <p class="text-sm text-gray-600">AVD i manteniment</p>
+                                <p class="text-xs text-gray-500 mt-2">Activitats instrumentals i bàsiques</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Model d'Intervenció ACP -->
+                    <div class="mb-16">
+                        <h5 class="text-2xl font-bold text-gray-800 mb-8 text-center">
+                            <i class="fas fa-heart text-red-500 mr-3"></i>
+                            Model d'Intervenció ACP
+                        </h5>
+                        <div class="bg-gradient-to-r from-red-50 to-pink-50 rounded-xl p-8">
+                            <div class="text-center mb-8">
+                                <h6 class="text-xl font-semibold text-red-800 mb-4">Atenció Centrada en la Persona</h6>
+                                <p class="text-lg text-gray-700 italic">
+                                    "No és fer per la persona, sinó fer amb la persona"
+                                </p>
+                            </div>
+
+                            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                                <div>
+                                    <h6 class="text-lg font-semibold text-red-700 mb-4">Què és el Model ACP?</h6>
+                                    <p class="text-gray-700 mb-4">
+                                        És un model d'intervenció que posa al centre la persona i no la malaltia, les
+                                        seues decisions i no només les seues necessitats físiques. No es tracta només de
+                                        "fer bé les coses", sinó de fer-les d'acord amb la identitat, la voluntat i el
+                                        ritme de cada persona.
+                                    </p>
+                                    <p class="text-gray-700">
+                                        Passem de veure "usuaris" o "dependents" a veure persones úniques, amb història
+                                        pròpia, emocions, desitjos i valors.
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <h6 class="text-lg font-semibold text-red-700 mb-4">Origen del Model</h6>
+                                    <p class="text-gray-700 mb-4">
+                                        Va néixer en el camp de la psicologia humanista de la mà de Carl Rogers, qui va
+                                        defensar que tota persona té capacitat per a créixer, escollijir i
+                                        autoregular-se, si se li ofereix un entorn de respecte, empatia i confiança.
+                                    </p>
+                                    <p class="text-gray-700">
+                                        Aquest model ha estat adaptat posteriorment al món de la geriatría, la
+                                        discapacitat i la salut mental.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Comparació de Models -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <div class="bg-gray-50 rounded-xl p-6">
+                                    <h6 class="text-lg font-semibold text-gray-700 mb-4">
+                                        <i class="fas fa-times-circle text-gray-500 mr-2"></i>
+                                        Model Assistencial Tradicional
+                                    </h6>
+                                    <ul class="space-y-3">
+                                        <li class="flex items-start">
+                                            <i class="fas fa-arrow-right text-gray-500 mt-1 mr-2"></i>
+                                            <div class="text-black">
+                                                <strong>Visió:</strong> Dependent, receptora de cures
+                                            </div>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-arrow-right text-gray-500 mt-1 mr-2"></i>
+                                            <div class="text-black">
+                                                <strong>Objectiu:</strong> Fer tasques amb eficiència
+                                            </div>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-arrow-right text-gray-500 mt-1 mr-2"></i>
+                                            <div class="text-black">
+                                                <strong>Decisions:</strong> Les pren l'equip per la persona
+                                            </div>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-arrow-right text-gray-500 mt-1 mr-2"></i>
+                                            <div class="text-black">
+                                                <strong>Rutina:</strong> Igual per a tots
+                                            </div>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-arrow-right text-gray-500 mt-1 mr-2"></i>
+                                            <div class="text-black">
+                                                <strong>Relació:</strong> Jeràrquica, distant
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div class="bg-green-50 rounded-xl p-6">
+                                    <h6 class="text-lg font-semibold text-green-700 mb-4">
+                                        <i class="fas fa-check-circle text-green-600 mr-2"></i>
+                                        Model ACP
+                                    </h6>
+                                    <ul class="space-y-3">
+                                        <li class="flex items-start">
+                                            <i class="fas fa-arrow-right text-green-600 mt-1 mr-2"></i>
+                                            <div class="text-black">
+                                                <strong>Visió:</strong> Subjecte actiu amb capacitat de decisió
+                                            </div>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-arrow-right text-green-600 mt-1 mr-2"></i>
+                                            <div class="text-black">
+                                                <strong>Objectiu:</strong> Viure amb sentit i qualitat relacional
+                                            </div>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-arrow-right text-green-600 mt-1 mr-2"></i>
+                                            <div class="text-black">
+                                                <strong>Decisions:</strong> Es consulten, es compartixen
+                                            </div>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-arrow-right text-green-600 mt-1 mr-2"></i>
+                                            <div class="text-black">
+                                                <strong>Rutina:</strong> Flexible i adaptada a ritmes i preferències
+                                            </div>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-arrow-right text-green-600 mt-1 mr-2"></i>
+                                            <div class="text-black">
+                                                <strong>Relació:</strong> Pròxima, basada en confiança i escolta
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Aplicació Pràctica en APEMAR -->
+                    <div class="mb-16">
+                        <h5 class="text-2xl font-bold text-gray-800 mb-8 text-center">
+                            <i class="fas fa-users text-purple-600 mr-3"></i>
+                            Aplicació Pràctica de l'ACP a APEMAR
+                        </h5>
+                        <div class="bg-gradient-to-r from-purple-50 to-indigo-50 rounded-xl p-8">
+                            <div class="text-center mb-8">
+                                <p class="text-lg text-gray-700 italic">
+                                    "Quan algú ens escolta realment, ens sentim estimats i capaços" - Carl Rogers
+                                </p>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <div>
+                                    <h6 class="text-lg font-semibold text-purple-800 mb-4">Com apliquem l'ACP a APEMAR?
+                                    </h6>
+                                    <ul class="space-y-3">
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check text-purple-600 mt-1 mr-2"></i>
+                                            <span class="text-black">Reconeguem a cada persona com a única amb la seua
+                                                pròpia història</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check text-purple-600 mt-1 mr-2"></i>
+                                            <span class="text-black">Parlem amb respecte i deixem escollijir</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check text-purple-600 mt-1 mr-2"></i>
+                                            <span class="text-black">Adaptem les rutines als ritmes individuals</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check text-purple-600 mt-1 mr-2"></i>
+                                            <span class="text-black">Mirem amb humanitat i empatia</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check text-purple-600 mt-1 mr-2"></i>
+                                            <span class="text-black">Creem un entorn de seguretat i confiança</span>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div>
+                                    <h6 class="text-lg font-semibold text-purple-800 mb-4">Eines Pràctiques de l'ACP
+                                    </h6>
+                                    <div class="space-y-4">
+                                        <div class="bg-white p-4 rounded-lg">
+                                            <h6 class="font-medium text-gray-800 mb-2">Fitxa Personal d'Interessos i
+                                                Hàbits</h6>
+                                            <p class="text-sm text-gray-600">Recollim informació significativa de cada
+                                                persona per a garantir atenció continuada i personalitzada</p>
+                                        </div>
+                                        <div class="bg-white p-4 rounded-lg">
+                                            <h6 class="font-medium text-gray-800 mb-2">Role Playing de Models</h6>
+                                            <p class="text-sm text-gray-600">Pràctiques per a diferenciar entre model
+                                                assistencial i ACP en situacions reals</p>
+                                        </div>
+                                        <div class="bg-white p-4 rounded-lg">
+                                            <h6 class="font-medium text-gray-800 mb-2">Dinàmiques de "Qui és Qui"</h6>
+                                            <p class="text-sm text-gray-600">Exercicis per a connectar amb la identitat
+                                                real de les persones més enllà del diagnòstic</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-8 text-center">
+                                <div class="bg-white rounded-xl p-6 inline-block">
+                                    <h6 class="text-lg font-semibold text-purple-800 mb-3">Filosofia APEMAR</h6>
+                                    <p class="text-gray-700">
+                                        La filosofia de Carl Rogers no va nàixer pensant en persones majors,
+                                        però encaixa perfectament amb el nostre objectiu: fer sentir cada persona
+                                        visible, valorada i amb dret a decidir, encara que tinga dificultats
+                                        cognitives o físiques.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer del Modal -->
+                <div class="mt-12 text-center">
+                    <!-- Botón de cerrar eliminado - ahora solo usa la X flotante -->
+                </div>
+            </div>
+            </section>
+        </div>
+
+        <!-- Cookie Consent Banner -->
+        <div id="cookie-banner" role="dialog" aria-label="Avís de cookies">
+            <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+                <p class="text-sm text-gray-300 leading-relaxed">
+                    <i class="fas fa-cookie-bite text-green-400 mr-2"></i>
+                    Utilitzem cookies tècniques necessàries per al funcionament del lloc. Consulta la nostra
+                    <a href="politica-cookies.html" class="text-green-400 hover:text-green-300 underline">Política de
+                        Cookies</a>.
+                </p>
+                <div class="flex gap-3 flex-shrink-0">
+                    <a href="politica-cookies.html"
+                        class="text-xs text-gray-400 hover:text-white underline transition">Més info</a>
+                    <button id="cookie-accept"
+                        class="bg-green-600 hover:bg-green-500 text-white text-sm font-semibold px-5 py-2 rounded-lg transition duration-200 whitespace-nowrap">
+                        Acceptar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <script src="script.js"></script>
+        <script>
+            // ── Scroll Progress Bar ──
+            (function () {
+                const bar = document.getElementById('scroll-progress');
+                if (!bar) return;
+                window.addEventListener('scroll', function () {
+                    const scrollTop = window.scrollY;
+                    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                    bar.style.width = (docHeight > 0 ? (scrollTop / docHeight) * 100 : 0) + '%';
+                }, { passive: true });
+            })();
+
+            // Resetejar la pàgina al principi i tancar modales al recarregar (F5) - INSTANTANI
+            (function () {
+                // Scroll inmediato al principio
+                window.scrollTo(0, 0);
+
+                // Cerrar todos los modales inmediatamente
+                const modals = document.querySelectorAll('.modal');
+                modals.forEach(modal => {
+                    modal.classList.add('hidden');
+                    modal.classList.remove('modal-enter-active', 'modal-exit');
+                });
+
+                // Restaurar scroll del body inmediatamente
+                document.body.style.overflow = 'auto';
+
+                // Eliminar botones de cerrar flotantes inmediatamente
+                const closeButtons = document.querySelectorAll('#modal-close-btn');
+                closeButtons.forEach(btn => {
+                    if (btn.parentNode) {
+                        btn.parentNode.removeChild(btn);
+                    }
+                });
+            })();
+
+            // Resetear también al recargar (beforeunload)
+            window.addEventListener('beforeunload', function () {
+                window.scrollTo(0, 0);
+                document.body.style.overflow = 'auto';
+            });
+
+            // Y al cargar la página (load) - doble seguridad
+            window.addEventListener('load', function () {
+                window.scrollTo(0, 0);
+                document.body.style.overflow = 'auto';
+            });
+
+            // ── Back to Top ──
+            (function () {
+                const btn = document.getElementById('back-to-top');
+                if (!btn) return;
+                window.addEventListener('scroll', function () {
+                    btn.classList.toggle('visible', window.scrollY > 400);
+                }, { passive: true });
+                btn.addEventListener('click', function () {
+                    document.documentElement.scrollTop = 0; // Scroll instantáneo (método alternativo)
+                    document.body.scrollTop = 0; // Para compatibilidad con navegadores antiguos
+                });
+            })();
+
+            // ── Cookie Banner ──
+            (function () {
+                const banner = document.getElementById('cookie-banner');
+                const btn = document.getElementById('cookie-accept');
+                if (!banner) return;
+                if (!localStorage.getItem('apemar_cookies_accepted')) {
+                    setTimeout(function () { banner.classList.add('visible'); }, 1200);
+                }
+                if (btn) btn.addEventListener('click', function () {
+                    banner.classList.remove('visible');
+                    localStorage.setItem('apemar_cookies_accepted', '1');
+                });
+            })();
+        </script>
+
+        <!-- Modal de Consejos para Familias -->
+        <div id="consejosFamiliesModal" class="fixed inset-0 bg-white z-50 hidden">
+            <!-- Header del Modal -->
+            <div class="sticky top-0 bg-white border-b border-gray-200 p-6 z-10">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex justify-between items-center">
+                        <h2 class="text-3xl font-bold text-gray-800">
+                            <i class="fas fa-heart text-purple-600 mr-3"></i>
+                            Consells per a Famílies Cuidadores
+                        </h2>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contenido del Modal -->
+            <div class="py-20 bg-gray-50 overflow-y-auto scrollable-content" style="max-height: 100vh;">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                        <h3 class="text-2xl font-bold text-purple-800 mb-6">
+                            <i class="fas fa-home mr-3"></i>
+                            Consells per a Cuidar a Persones Majors des de Casa
+                        </h3>
+
+                        <div class="space-y-6">
+                            <!-- Consejo 1 -->
+                            <div class="border-l-4 border-purple-500 pl-6 py-4 bg-purple-50 rounded-r-lg">
+                                <h4 class="text-xl font-semibold text-purple-800 mb-3">
+                                    <i class="fas fa-clipboard-list mr-2"></i>
+                                    1. Realitza un diagnòstic de necessitats
+                                </h4>
+                                <p class="text-gray-700 leading-relaxed">
+                                    Cal partir de la realitat, cal llistar quines són les necessitats del nostre
+                                    familiar, així com els recursos amb els que comptem per fer-los front. Una vegada
+                                    establint què és el que es necessita, es procedirà a elaborar un pla d'acció
+                                    realista del que cada familiar pot aportar, així com buscar els mitjans i les
+                                    persones per facilitar el procés.
+                                </p>
+                            </div>
+
+                            <!-- Consejo 2 -->
+                            <div class="border-l-4 border-blue-500 pl-6 py-4 bg-blue-50 rounded-r-lg">
+                                <h4 class="text-xl font-semibold text-blue-800 mb-3">
+                                    <i class="fas fa-users mr-2"></i>
+                                    2. Fes acords familiars
+                                </h4>
+                                <p class="text-gray-700 leading-relaxed">
+                                    Quan el teu familiar comença a tornar-se dependent, és necessari arribar a acords
+                                    familiars respecte a les responsabilitats que cada fill prendrà. És comú que es
+                                    presenten desacords i fregaments. La recomanació és establir una reunió familiar per
+                                    parlar obertament de les expectatives, possibilitats i responsabilitats que cada un
+                                    dels integrants haurà de complir amb l'objectiu de reforçar els llaços familiars.
+                                </p>
+                            </div>
+
+                            <!-- Consejo 3 -->
+                            <div class="border-l-4 border-green-500 pl-6 py-4 bg-green-50 rounded-r-lg">
+                                <h4 class="text-xl font-semibold text-green-800 mb-3">
+                                    <i class="fas fa-user-md mr-2"></i>
+                                    3. Reuneix un bon equip de professionals
+                                </h4>
+                                <p class="text-gray-700 leading-relaxed">
+                                    Generalment una persona major presenta diverses patologies, el més recomanable és
+                                    comptar amb un Geriatra que puga guiar-los com a família en l'atenció i tractament
+                                    del seu familiar. Si requereix assistència personalitzada i suport per realitzar les
+                                    activitats de la vida diària, considera l'opció de contractar un servei
+                                    d'assistència per a adults majors en el seu domicili.
+                                </p>
+                            </div>
+
+                            <!-- Consejo 4 -->
+                            <div class="border-l-4 border-yellow-500 pl-6 py-4 bg-yellow-50 rounded-r-lg">
+                                <h4 class="text-xl font-semibold text-yellow-800 mb-3">
+                                    <i class="fas fa-clock mr-2"></i>
+                                    4. Estableix una rutina diària
+                                </h4>
+                                <p class="text-gray-700 leading-relaxed">
+                                    És recomanable tenir un horari per a cada activitat durant el dia, des de
+                                    l'esmorzar, l'higiene personal, activitats recreatives, socials, entre altres,
+                                    perquè el nostre familiar s'acostume a realitzar-les sense problemes. Comptar amb
+                                    una rutina estructurada ajuda a mantenir les seues activitats en ordre fent que el
+                                    nostre familiar es sentisga segur a més de promoure que l'adult major conserve els
+                                    seus horaris de son i vigília.
+                                </p>
+                            </div>
+
+                            <!-- Consejo 5 -->
+                            <div class="border-l-4 border-red-500 pl-6 py-4 bg-red-50 rounded-r-lg">
+                                <h4 class="text-xl font-semibold text-red-800 mb-3">
+                                    <i class="fas fa-shield-alt mr-2"></i>
+                                    5. Estableix un pla de seguretat
+                                </h4>
+                                <p class="text-gray-700 leading-relaxed">
+                                    En un adult major s'incrementen els riscos d'accidents ja que els seus sentits
+                                    comencen a disminuir, et recomanem fer una llista d'alguns factors de risc i prendre
+                                    accions respecte a això. Un dels perills als quals els adults majors s'enfronten
+                                    contínuament són les caigudes. Per evitar que això succeïsca, cal fer una revisió de
+                                    l'espai vital del teu familiar i llevar obstacles, catifes, taules fràgils on puga
+                                    trobar-se.
+                                </p>
+                            </div>
+
+                            <!-- Consejo 6 -->
+                            <div class="border-l-4 border-indigo-500 pl-6 py-4 bg-indigo-50 rounded-r-lg">
+                                <h4 class="text-xl font-semibold text-indigo-800 mb-3">
+                                    <i class="fas fa-pills mr-2"></i>
+                                    6. Porta un registre dels medicaments
+                                </h4>
+                                <p class="text-gray-700 leading-relaxed">
+                                    És comú que l'adult major consumeixa diversos medicaments i puga arribar a
+                                    confondre's i duplicar la seua dosi. Per un altre costat, existeix la tendència cap
+                                    a l'auto-mediació, açò és molt perillós i, per tant, necessari que tu, com a
+                                    familiar, prengues control de la situació. Et recomanem portar en una llibreta o
+                                    bitàcora el control diari de cada medicament i usar pastillers controlats.
+                                </p>
+                            </div>
+
+                            <!-- Consejo 7 -->
+                            <div class="border-l-4 border-pink-500 pl-6 py-4 bg-pink-50 rounded-r-lg">
+                                <h4 class="text-xl font-semibold text-pink-800 mb-3">
+                                    <i class="fas fa-utensils mr-2"></i>
+                                    7. Estableix un pla alimentici
+                                </h4>
+                                <p class="text-gray-700 leading-relaxed">
+                                    En l'edat avançada existeix la tendència a consumir menys aliments i que aquests
+                                    siguen d'un sol tipus. Es recomana portar una dieta equilibrada per prevenir
+                                    qualsevol problema de salut a més d'ajudar al teu familiar a enfortir-se física i
+                                    mentalment.
+                                </p>
+                            </div>
+
+                            <!-- Consejo 8 -->
+                            <div class="border-l-4 border-teal-500 pl-6 py-4 bg-teal-50 rounded-r-lg">
+                                <h4 class="text-xl font-semibold text-teal-800 mb-3">
+                                    <i class="fas fa-running mr-2"></i>
+                                    8. Ajuda a mantenir-se actiu físicament i cognitivament
+                                </h4>
+                                <p class="text-gray-700 leading-relaxed">
+                                    Cal prevenir la immobilitat i els trastorns de memòria. Podem promoure l'activitat
+                                    amb una simple caminada diària, hobbies o activitats dins de l'habitatge que motiven
+                                    al teu familiar a continuar amb una vida activa i saludable. La memòria tendeix a
+                                    decaure amb l'edat és per això que hem d'ajudar-los a comptar amb eines per
+                                    estimular la seua ment com: trencaclosques, endevinalles, sopes de lletres, mots
+                                    encreuats, entre altres.
+                                </p>
+                            </div>
+
+                            <!-- Consejo 9 -->
+                            <div class="border-l-4 border-orange-500 pl-6 py-4 bg-orange-50 rounded-r-lg">
+                                <h4 class="text-xl font-semibold text-orange-800 mb-3">
+                                    <i class="fas fa-comments mr-2"></i>
+                                    9. Ajuda a mantenir-se socialment connectat
+                                </h4>
+                                <p class="text-gray-700 leading-relaxed">
+                                    És important promoure la socialització amb els nostres familiars i permetre la
+                                    interacció no només amb la família sinó amb cercles propers d'amistats. Això els
+                                    ajudarà a continuar vivint una vida de qualitat i els donarà l'oportunitat
+                                    d'establir-se noves metes, nous interessos i estils de vida per així sentir-se més
+                                    realitzats.
+                                </p>
+                            </div>
+
+                            <!-- Consejo 10 -->
+                            <div class="border-l-4 border-purple-600 pl-6 py-4 bg-purple-100 rounded-r-lg">
+                                <h4 class="text-xl font-semibold text-purple-900 mb-3">
+                                    <i class="fas fa-heart mr-2"></i>
+                                    10. Brinda afecte, atenció i detalls
+                                </h4>
+                                <p class="text-gray-700 leading-relaxed">
+                                    El més important és el carinyo i l'amor que pugam brindar al nostre familiar. Potser
+                                    hi haurà necessitats materials que siguen difícils de cobrir, però el temps, els
+                                    detalls i l'afecte que dia a dia els donem faran que es sentisquen més feliços i
+                                    estimats sense importar les condicions en les quals es troben.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Mensaje final -->
+                        <div class="mt-8 p-6 bg-gradient-to-r from-purple-100 to-pink-100 rounded-lg text-center">
+                            <h4 class="text-xl font-bold text-purple-800 mb-3">
+                                <i class="fas fa-hands-helping mr-2"></i>
+                                Recorda...
+                            </h4>
+                            <p class="text-gray-700 text-lg">
+                                Cuidar d'un familiar major és un acte d'amor, però també és important que cuides de tu
+                                mateix/a.
+                                No dubtes a buscar suport quan el necessites i recorda que no estàs sola/sol en
+                                aquest camí.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="calendari.js"></script>
+        <script src="dades-serveis.js"></script>
+        <script src="ui-efectes.js"></script>
+        <script src="modals-logic.js"></script>
+</body>
+
+</html>

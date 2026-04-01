@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programes Terapèutics Especialitzats - APEMAR</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        (function() {
+            try {
+                if ('scrollRestoration' in history) {
+                    history.scrollRestoration = 'manual';
+                }
+                var params = new URLSearchParams(window.location.search);
+                var servicio = params.get('servicio');
+                if (servicio) {
+                    sessionStorage.setItem('apemar_selected_service', servicio);
+                    window.scrollTo(0, 0);
+                    return;
+                }
+
+                if (window.location.hash) {
+                    var id = window.location.hash.slice(1);
+                    if (id) {
+                        sessionStorage.setItem('apemar_selected_service', id);
+                    }
+                    history.replaceState(null, document.title, window.location.pathname + window.location.search);
+                    window.scrollTo(0, 0);
+                }
+            } catch (e) {
+                // noop
+            }
+        })();
+    </script>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <img src="fotos/apemar-logo.png" alt="APEMAR Logo" class="h-8 w-auto mr-2">
+                        <span class="text-xl font-bold text-gray-800">APEMAR</span>
+                    </div>
+                    <div class="hidden md:ml-6 md:flex md:space-x-8">
+                        <a href="index.html" class="nav-link text-gray-700 hover:text-green-600 px-3 py-2 text-sm font-medium">Inici</a>
+                        <a href="index.html#serveis" class="nav-link text-gray-700 hover:text-green-600 px-3 py-2 text-sm font-medium">Serveis</a>
+                        <a href="index.html#dades-programa" class="nav-link text-gray-700 hover:text-green-600 px-3 py-2 text-sm font-medium">Nosaltres</a>
+                        <a href="index.html#contacte" class="nav-link text-gray-700 hover:text-green-600 px-3 py-2 text-sm font-medium">Contacte</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="gradient-bg text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4">Programes Terapèutics Especialitzats</h1>
+                <p class="text-xl max-w-3xl mx-auto">
+                    Coneix els nostres programes basats en el Model ACP per a persones majors amb malalties neurodegeneratives
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Secció de Detalls de Serveis -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-10">
+                <button type="button" id="backButton" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition transform hover:scale-105 hover:shadow-lg active:scale-95 btn-exit-animation">
+                    <i class="fas fa-arrow-left mr-2"></i>
+                    Eixir
+                </button>
+            </div>
+            
+            <!-- Adaptació i Acollida -->
+            <div class="service-section mb-16" id="adaptacion">
+                <div class="bg-gray-50 rounded-2xl p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="text-green-600 mr-4">
+                            <i class="fas fa-home text-3xl"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-gray-800">Adaptació i Acollida</h2>
+                    </div>
+                    
+                    <p class="text-gray-600 mb-6">
+                        El nostre programa d'adaptació i acollida està dissenyat per a facilitar la transició de les persones majors al centre d'activitats diürnes. A través d'un procés gradual i personalitzat, assegurem que cada persona usuària se senta còmoda, segura i integrada en el nostre entorn.
+                    </p>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-800 mb-3">Objectius principals:</h3>
+                            <ul class="space-y-2 text-gray-600">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-600 mr-2 mt-1"></i>
+                                    <span>Facilitar la integració social i emocional</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-600 mr-2 mt-1"></i>
+                                    <span>Reduir l'ansietat i el estrès inicial</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-600 mr-2 mt-1"></i>
+                                    <span>Crear un vincle de confiança amb l'equip</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-600 mr-2 mt-1"></i>
+                                    <span>Adaptar les activitats a les capacitats individuals</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-800 mb-3">Estratègies d'intervenció:</h3>
+                            <ul class="space-y-2 text-gray-600">
+                                <li class="flex items-start">
+                                    <i class="fas fa-users text-green-600 mr-2 mt-1"></i>
+                                    <span>Visites prèvies al centre</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-user-friends text-green-600 mr-2 mt-1"></i>
+                                    <span>Assignació d'un referent personal</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-calendar-check text-green-600 mr-2 mt-1"></i>
+                                    <span>Progressió gradual en l'horari d'estada</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-heart text-green-600 mr-2 mt-1"></i>
+                                    <span>Activitats de presentació grupal</span>
+                                </li>
+                                    <li class="flex items-start">
+                                    <i class="fas fa-star text-green-600 mr-2 mt-1"></i>
+                                    <span>Millorar la seguretat emocional</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-star text-green-600 mr-2 mt-1"></i>
+                                    <span>Potenciar l'autonomia i participació diària</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                                <i class="fas fa-cogs text-green-600 mr-2"></i>
+                                Accions que realitzem
+                            </h3>
+                            <ul class="space-y-2 text-gray-600">
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Entrevista inicial amb persona i família</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Assignació de professional de referència</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Pla d'acollida individualitzat amb seguiment</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Presentació progressiva d'espais i activitats</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Activitats grups de coneixement i integració</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Coordinació familiar per a rutines diàries</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Observació constant de l'estat emocional</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Reunions de valoració periòdiques</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 p-6 bg-green-50 rounded-xl">
+                        <div class="font-semibold text-gray-800 flex items-center">
+                            <i class="fas fa-info-circle text-green-600 mr-2"></i>
+                            Informació addicional
+                        </div>
+                        <div class="mt-3 text-gray-600">
+                            El període d'adaptació sol durar entre 2 i 4 setmanes, durant les quals realitzem un seguiment 
+                            intensiu tant de la persona com de la seua família. Cada resident compta amb un professional de referència 
+                            que actua com a punt de contacte principal per a resoldre qualsevol dubte o inquietud.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Àrea Emocional i Psicològica -->
+            <div class="service-section mb-16" id="emocional">
+                <div class="bg-gray-50 rounded-2xl p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="text-green-600 mr-4">
+                            <i class="fas fa-heart text-3xl"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-gray-800">Àrea Emocional i Psicològica</h2>
+                    </div>
+                    
+                    <div class="mb-8 service-intro">
+                        <p class="text-gray-600 mb-4">
+                            El benestar emocional i psicològic és fonamental per a una qualitat de vida plena en persones majors. 
+                            El nostre enfocament integral aborda tant les necessitats emocionals individuals com la salut mental general, 
+                            proporcionant un entorn segur on cada persona pot expressar els seus sentiments i trobar suport.
+                        </p>
+                        <p class="text-gray-600">
+                            Treballem per a mantenir i reforçar l'autoestima, gestionar adequadament les emocions 
+                            i proporcionar eines per a enfrontar els desafiaments propis d'aquesta etapa de la vida. 
+                            La coherència entre el centre i el lar és clau per al benestar emocional continu.
+                        </p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 service-columns">
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                                <i class="fas fa-heart text-green-600 mr-2"></i>
+                                Necessitats que atenem
+                            </h3>
+                            <ul class="space-y-2 text-gray-600">
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Rebre suport en ansietat, dolor o pèrdua</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Mantenir autoestima i sentiment d'utilitat</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Sentir-se escoltat/a i respectat/a</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Reforçar seguretat personal i control de vida</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Reduir la solitud emocional</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Mantenir actitud positiva davant canvis</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Garantir coherència emocional centre-casa</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                                <i class="fas fa-star text-green-600 mr-2"></i>
+                                Objectius que perseguim
+                            </h3>
+                            <ul class="space-y-2 text-gray-600">
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Potenciar estabilitat emocional i benestar</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Millorar capacitat d'expressar i gestionar emocions</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Fortaleixir autoestima i identitat personal</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Favoreir relacions de confiança</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Detectar i intervenir precoçment en malestar</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Promoure participació activa en decisions</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Coordinar estratègies emocionals amb família</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Reforçar estat d'ànim amb activitats</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                                <i class="fas fa-cogs text-green-600 mr-2"></i>
+                                Accions que realitzem
+                            </h3>
+                            <ul class="space-y-2 text-gray-600">
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Sessions individuals de suport emocional</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Activitats de reminiscència i validació</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Dinàmiques grups per a autoestima i confiança</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Incorporació d'activitats significatives</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Coordinació amb família per a suport emocional</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Seguiment d'apàtia, irritabilitat o tristesa</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Intervenció en moments de dolor o canvi</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Espais diaris de motivació i bon humor</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 p-6 bg-green-50 rounded-xl">
+                        <div class="font-semibold text-gray-800 flex items-center">
+                            <i class="fas fa-info-circle text-green-600 mr-2"></i>
+                            Informació addicional
+                        </div>
+                        <div class="mt-3 text-gray-600">
+                            Comptem amb personal especialitzat en psicologia geriàtrica que realitza avaluacions periòdiques 
+                            de l'estat emocional. Les sessions de suport s'adapten a les necessitats individuals i poden 
+                            incloure teràpia de reminiscència, musicoteràpia, arteteràpia i altres intervencions terapèutiques 
+                            complementàries que promouen el benestar emocional.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Estimulació Cognitiva -->
+            <div class="service-section mb-16" id="cognitiva">
+                <div class="bg-gray-50 rounded-2xl p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="text-green-600 mr-4">
+                            <i class="fas fa-brain text-3xl"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-gray-800">Estimulació Cognitiva</h2>
+                    </div>
+                    
+                    <div class="mb-8 service-intro">
+                        <p class="text-gray-600 mb-4">
+                            L'estimulació cognitiva és fonamental per a mantindre actives les funcions mentals i retardar 
+                            el deteriorament cognitiu. El nostre programa integral abasta memòria, atenció, llenguatge, orientació 
+                            i raonament, adaptant cada activitat a les capacitats individuals de cada resident.
+                        </p>
+                        <p class="text-gray-600">
+                            Treballem de manera sistemàtica i diària per a preservar i estimular les capacitats cognitives, 
+                            fomentant l'autonomia en la presa de decisions i mantinent la connexió amb la realitat. 
+                            La coordinació amb la família assegura la continuïtat dels exercicis cognitius en el domicili.
+                        </p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 service-columns">
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                                <i class="fas fa-heart text-green-600 mr-2"></i>
+                                Necessitats que atenem
+                            </h3>
+                            <ul class="space-y-2 text-gray-600">
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Estimulació cognitiva diària adaptada</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Evitar desconnexió amb la realitat</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Mantindre memòria, atenció i orientació</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Prevenir deteriorament cognitiu accelerat</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Coordinar exercicis amb família</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Favoreir autonomia en presa de decisions</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Mantindre capacitat de llenguatge i comunicació</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Estimular raonament i resolució de problemes</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                                <i class="fas fa-bullseye text-green-600 mr-2"></i>
+                                Objectius que perseguim
+                            </h3>
+                            <ul class="space-y-2 text-gray-600">
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Preservar i estimular funcions cognitives</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Mantindre orientació temporal, espacial i personal</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Potenciar participació activa en activitats mentals</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Retardar deteriorament cognitiu</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Fomentar autonomia cognitiva en activitats diàries</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Facilitar transferència de rutines cognitives a casa</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Detectar canvis cognitius per a actuació precoç</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Millorar autoestima a través d'èxits cognitius</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                                <i class="fas fa-cogs text-green-600 mr-2"></i>
+                                Accions que realitzem
+                            </h3>
+                            <ul class="space-y-2 text-gray-600">
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Tallers diaris d'estimulació cognitiva</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Exercicis d'atenció, càlcul, memòria i llenguatge</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Orientació a la realitat amb calendaris i suports visuals</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Lectura de notícies, debat o tertúlies guiades</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Jocs de taula i activitats lúdiques amb raonament</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Coordinació amb família per a exercicis a domicili</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Seguiment periòdic del rendiment cognitiu</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 p-6 bg-green-50 rounded-xl">
+                        <div class="font-semibold text-gray-800 flex items-center">
+                            <i class="fas fa-info-circle text-green-600 mr-2"></i>
+                            Informació addicional
+                        </div>
+                        <div class="mt-3 text-gray-600">
+                            El nostre programa cognitiu està dissenyat per a persones amb diferents nivells de deteriorament. 
+                            Realitzem avaluacions mensuals per a ajustar el nivell de dificultat i garantir que cada persona 
+                            usuària treballa en la seua zona de desenvolupament òptim.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fisioteràpia i Rehabilitació -->
+            <div class="service-section mb-16" id="fisioterapia">
+                <div class="bg-gray-50 rounded-2xl p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="text-green-600 mr-4">
+                            <i class="fas fa-running text-3xl"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-gray-800">Fisioteràpia i Rehabilitació</h2>
+                    </div>
+                    
+                    <div class="mb-8 service-intro">
+                        <p class="text-gray-600 mb-4">
+                            La capacitat física i funcional és essencial per a mantindre la independència i qualitat de vida. 
+                            El nostre programa integral està dissenyat per a preservar i millorar la mobilitat, força i equilibri 
+                            mitjançant exercicis adaptats i supervisats per professionals especialitzats.
+                        </p>
+                        <p class="text-gray-600">
+                            Treballem de manera proactiva en la prevenció de caigudes i lesions, adaptant totes les activitats 
+                            a les capacitats individuals de cada persona usuària. La coordinació amb el personal sanitari 
+                            assegura una atenció integral i coherent.
+                        </p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 service-columns">
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                                <i class="fas fa-heart text-green-600 mr-2"></i>
+                                Necessitats que atenem
+                            </h3>
+                            <ul class="space-y-2 text-gray-600">
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Mantindre mobilitat i força muscular</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Evitar dependència funcional progressiva</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Prevenir caigudes i lesions accidentals</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Adaptar activitats a capacitats individuals</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Reforçar hàbits actius a domicili</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Mantindre coordinació i equilibri</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Promoure autonomia en AVD (Activitats Vida Diària)</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Garantir seguretat en trasllats i espais</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                                <i class="fas fa-bullseye text-green-600 mr-2"></i>
+                                Objectius que perseguim
+                            </h3>
+                            <ul class="space-y-2 text-gray-600">
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Preservar independència en AVD</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Millorar equilibri i coordinació</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Favoreir participació activa en activitats físiques</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Reduir risc de caigudes i accidents</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Coordinar exercicis entre centre i domicili</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Potenciar força, resistència i flexibilitat</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Fomentar ús adequat d'ajudes tècniques</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Detectar i corregir hàbits posturals inadequats</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                                <i class="fas fa-cogs text-green-600 mr-2"></i>
+                                Accions que realitzem
+                            </h3>
+                            <ul class="space-y-2 text-gray-600">
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Sessió diària de gimnàstica suau i psicomotricitat</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Entrenament en transferències i mobilitat</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Exercicis de força i equilibri adaptats</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Supervisió de desplaçaments dins del centre</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Recomanacions d'exercicis senzills per a casa</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Adaptació d'espais per a seguretat</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Observació i registre de capacitats funcionals</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Reforç positiu de la participació i autonomia</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 p-6 bg-green-50 rounded-xl">
+                        <div class="font-semibold text-gray-800 flex items-center">
+                            <i class="fas fa-info-circle text-green-600 mr-2"></i>
+                            Informació addicional
+                        </div>
+                        <div class="mt-3 text-gray-600">
+                            Comptem amb fisioterapeutes i terapeutes ocupacionals especialitzats que dissenyen programes individualitzats. Les sessions diàries de 30-45 minuts inclouen exercicis de baix impacte, estiraments i activitats de coordinació. Realitzem avaluacions funcionals mensuals per a ajustar els programes segons les necessitats canviants de cada resident.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Higiene Personal i Imatge -->
+            <div class="service-section mb-16" id="higiene">
+                <div class="bg-gray-50 rounded-2xl p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="text-green-600 mr-4">
+                            <i class="fas fa-shower text-3xl"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-gray-800">Higiene Personal i Imatge</h2>
+                    </div>
+                    
+                    <div class="mb-8 service-intro">
+                        <p class="text-gray-600 mb-4">
+                            La higiene personal i la cura de la imatge són fonamentals per a mantindre la dignitat, 
+                            autoestima i salut de les persones usuàries. El nostre enfocament respectuós garanteix la intimitat 
+                            mentre proporciona el suport necessari per a mantindre hàbits d'higiene adequats i segurs.
+                        </p>
+                        <p class="text-gray-600">
+                            Treballem coordinadament amb les famílies per a mantindre les rutines d'higiene establertes, 
+                            adaptant els suports segons les capacitats individuals i promovent la màxima autonomia possible. 
+                            El confort i el benestar durant les cures són prioritaris en cada intervenció.
+                        </p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 service-columns">
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                                <i class="fas fa-heart text-green-600 mr-2"></i>
+                                Necessitats que atenem
+                            </h3>
+                            <ul class="space-y-2 text-gray-600">
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Rebre suport respectuós en higiene diària</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Preservar intimitat i dignitat personal</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Mantindre imatge personal i autocura</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Coordinar rutines amb la família</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Reforçar autonomia en AVD d'higiene</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Rebre orientació sobre productes i tècniques</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Evitar infeccions i problemes cutanis</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Favoreir plaer i confort en la cura</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                                <i class="fas fa-bullseye text-green-600 mr-2"></i>
+                                Objectius que perseguim
+                            </h3>
+                            <ul class="space-y-2 text-gray-600">
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Mantindre higiene i imatge personal adequada</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Fomentar participació activa en la cura personal</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Reforçar autonomia en activitats de vida diària</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Coordinar pautes d'higiene centre-casa</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Garantir seguretat i salut cutània</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Promoure confort i benestar durant la higiene</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Favoreir autoestima a través de la imatge personal</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Estimular hàbits d'autocura sostenibles</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                                <i class="fas fa-cogs text-green-600 mr-2"></i>
+                                Accions que realitzem
+                            </h3>
+                            <ul class="space-y-2 text-gray-600">
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Suport parcial o total en higiene diària</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Supervisió de mans, ungles i higiene bucal</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Reforç positiu de participació i autonomia</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Orientació sobre tècniques i productes d'higiene</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Coordinació amb família per a mantindre rutines</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Adaptació de banys i espais segons necessitats</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Programació de rutines segons preferències</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Observació de signes de problemes cutanis o infeccions</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <details class="mt-8 p-6 bg-green-50 rounded-xl">
+                        <summary class="font-semibold text-gray-800 flex items-center cursor-pointer">
+                            <i class="fas fa-info-circle text-green-600 mr-2"></i>
+                            Informació addicional
+                        </summary>
+                        <div class="mt-3 text-gray-600">
+                            Comptem amb personal auxiliar d'infermeria especialitzat en cures d'higiene geriàtrica. 
+                            Els banys estan adaptats amb elements de seguretat i els productes d'higiene són hipoal·lergènics. 
+                            Realitzem avaluacions dermatològiques periòdiques per a prevenir problemes cutanis i garantir 
+                            el benestar integral de cada resident.
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Àrea Social i Relacional -->
+            <div class="service-section mb-16" id="social">
+                <div class="bg-gray-50 rounded-2xl p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="text-green-600 mr-4">
+                            <i class="fas fa-users text-3xl"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-gray-800">Àrea Social i Relacional</h2>
+                    </div>
+                    
+                    <div class="mb-8 service-intro">
+                        <p class="text-gray-600 mb-4">
+                            Mantindre una vida social activa i relacions significatives millora l'estat d'ànim, 
+                            redueix la sensació de soledat i afavoreix la participació en la vida del centre. 
+                            A APEMAR creem un entorn càlid i proper on es fortaleixen els vincles i es promou 
+                            la convivència positiva.
+                        </p>
+                        <p class="text-gray-600">
+                            Treballem la integració social dins del centre i també el contacte amb la comunitat 
+                            externa, impulsant activitats compartides, celebracions i iniciatives intergeneracionals. 
+                            La coordinació amb la família és constant per a sostenir una xarxa de suport estable.
+                        </p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 service-columns">
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                                <i class="fas fa-heart text-green-600 mr-2"></i>
+                                Necessitats que atenem
+                            </h3>
+                            <ul class="space-y-2 text-gray-600">
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Mantindre vincles familiars i socials</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Participar en activitats grupals</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Evitar aïllament o sentiments de soledat</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Fomentar comunicació i interacció positiva</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Coordinar activitats socials amb la família</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Desenvolupar habilitats de convivència i cooperació</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Establir relacions de confiança amb professionals</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Participar en la comunitat i en activitats intergeneracionals</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                                <i class="fas fa-bullseye text-green-600 mr-2"></i>
+                                Objectius que perseguim
+                            </h3>
+                            <ul class="space-y-2 text-gray-600">
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Favoreir la integració social dins del centre</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Reforçar la xarxa de relacions i el sentit de pertinença</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Millorar habilitats comunicatives i de convivència</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Promoure relacions positives i respectuoses</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Coordinar activitats socials centre-família</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Reduir aïllament i soledat</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Potenciar participació en esdeveniments i celebracions</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Fomentar la interacció amb la comunitat externa</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                                <i class="fas fa-cogs text-green-600 mr-2"></i>
+                                Accions que realitzem
+                            </h3>
+                            <ul class="space-y-2 text-gray-600">
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Organització d'activitats grupals i tallers socials</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Dinàmiques de grup per a fomentar cooperació i confiança</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Contacte periòdic amb la família sobre participació social</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Celebració d'aniversaris, festes i activitats intergeneracionals</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Mediació en conflictes entre persones usuàries</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Creació de grups de suport emocional i relacional</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Activitats de voluntariat i intercanvi amb la comunitat</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Foment de visites i comunicació amb amics i familiars</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Àrea Lúdica i Ocupacional -->
+            <div class="service-section mb-16" id="ludica">
+                <div class="bg-gray-50 rounded-2xl p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="text-green-600 mr-4">
+                            <i class="fas fa-gamepad text-3xl"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-gray-800">Àrea Lúdica i Ocupacional</h2>
+                    </div>
+                    
+                    <div class="mb-8 service-intro">
+                        <p class="text-gray-600 mb-4">
+                            Les activitats lúdiques i ocupacionals ajuden a mantindre la motivació, estimular la creativitat 
+                            i reforçar la identitat personal. A APEMAR proposem activitats significatives i gratificants 
+                            que connecten amb la història de vida, les aficions i els interessos de cada resident.
+                        </p>
+                        <p class="text-gray-600">
+                            Adaptem cada proposta a les capacitats i preferències individuals, buscant sempre un equilibri 
+                            entre gaudi i repte. A més, coordinem amb les famílies perquè algunes activitats puguen 
+                            continuar a casa, fortaleixent els vincles i la continuïtat de l'oci.
+                        </p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 service-columns">
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                                <i class="fas fa-heart text-green-600 mr-2"></i>
+                                Necessitats que atenem
+                            </h3>
+                            <ul class="space-y-2 text-gray-600">
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Participar en activitats significatives i gratificants</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Mantindre motivació i interès en l'oci</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Evitar apatia i inactivitat</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Coordinar activitats amb la família segons interessos</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Desenvolupar creativitat i expressió personal</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Fomentar autonomia en activitats d'oci</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Adaptar activitats a capacitats i preferències</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Reforçar la història de vida i aficions personals</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                                <i class="fas fa-bullseye text-green-600 mr-2"></i>
+                                Objectius que perseguim
+                            </h3>
+                            <ul class="space-y-2 text-gray-600">
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Promoure gaudi, creativitat i motivació</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Fomentar participació activa en activitats lúdiques</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Potenciar autoexpressió i satisfacció personal</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Coordinar activitats d'oci amb família i entorn</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Desenvolupar habilitats pràctiques i manuals</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Prevenir apatia i desconnexió social</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Favoreir intercanvi i cooperació entre persones usuàries</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Adaptar activitats mantinent el repte adequat</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                                <i class="fas fa-cogs text-green-600 mr-2"></i>
+                                Accions que realitzem
+                            </h3>
+                            <ul class="space-y-2 text-gray-600">
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Tallers de música, manualitats, jardineria, cuina i lectura</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Jocs de taula (dominó, cartes) i activitats grupals</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Activitats basades en interessos i història de vida</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Propostes lúdiques per a continuar a casa amb la família</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Exhibició de treballs o creacions en el centre</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Dinamització de grups amb acompanyament individualitzat</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Sessions de psicomotricitat lúdica</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Incorporació d'activitats intergeneracionals o comunitàries</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 p-6 bg-green-50 rounded-xl">
+                        <div class="font-semibold text-gray-800 flex items-center">
+                            <i class="fas fa-info-circle text-green-600 mr-2"></i>
+                            Informació addicional
+                        </div>
+                        <div class="mt-3 text-gray-600">
+                            Organitzem més de 20 activitats socials setmanals, des de grups de conversació fins a tallers creatius i celebracions comunitàries. Comptem amb voluntaris i col·laboradors externs que enriqueixen les nostres activitats i faciliten l'intercanvi intergeneracional.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Àrea Espiritual i Valors -->
+            <div class="service-section mb-16" id="espiritual">
+                <div class="bg-gray-50 rounded-2xl p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="text-green-600 mr-4">
+                            <i class="fas fa-pray text-3xl"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-gray-800">Àrea Espiritual i Valors</h2>
+                    </div>
+                    
+                    <div class="mb-8 service-intro">
+                        <p class="text-gray-600 mb-4">
+                            La dimensió espiritual i els valors personals aporten sentit, serenitat i benestar emocional. 
+                            A APEMAR respectem les creences, tradicions i la identitat de cada persona, facilitant espais 
+                            de reflexió i suport quan ho necessita.
+                        </p>
+                        <p class="text-gray-600">
+                            Acompanyem especialment en moments de dol o pèrdua, afavorint un entorn de respecte 
+                            i contenció emocional. Coordinem amb la família per a mantindre la coherència entre el centre 
+                            i el domicili en el relacionat amb creences i pràctiques personals.
+                        </p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 service-columns">
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                                <i class="fas fa-heart text-green-600 mr-2"></i>
+                                Necessitats que atenem
+                            </h3>
+                            <ul class="space-y-2 text-gray-600">
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Expressar creences, valors i espiritualitat</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Accedir a pràctiques religioses segons preferència</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Participar en rituals o celebracions significatives</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Rebre suport en moments de dol o pèrdua</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Coordinar activitats espirituals amb la família</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Respectar i mantindre tradicions personals</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Disposar d'espais tranquils per a meditació o reflexió</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Mantindre coherència entre creences en centre i domicili</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                                <i class="fas fa-bullseye text-green-600 mr-2"></i>
+                                Objectius que perseguim
+                            </h3>
+                            <ul class="space-y-2 text-gray-600">
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Facilitar l'expressió lliure de valors i creences</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Garantir accés a activitats religioses segons preferència</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Favoreir benestar espiritual i emocional</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Coordinar activitats amb família i entorn</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Respectar identitat i tradicions personals</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Promoure moments de reflexió i serenitat</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Acompanyar processos de dol o pèrdua</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Integrar espiritualitat en la vida quotidiana centre-domicili</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                                <i class="fas fa-cogs text-green-600 mr-2"></i>
+                                Accions que realitzem
+                            </h3>
+                            <ul class="space-y-2 text-gray-600">
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Facilitar assistència a missa o altres cerimònies</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Coordinar visites de capellans/ministres religiosos al centre</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Organitzar espais de meditació i reflexió personal</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Dinàmiques de record i commemoració de tradicions personals</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Reunions amb la família per a respectar pràctiques a domicili</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Acompanyament emocional en moments de pèrdua</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Fomentar expressió de valors i creences en grup</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Observació i registre del benestar espiritual i emocional</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 p-6 bg-green-50 rounded-xl">
+                        <div class="font-semibold text-gray-800 flex items-center">
+                            <i class="fas fa-info-circle text-green-600 mr-2"></i>
+                            Informació addicional
+                        </div>
+                        <div class="mt-3 text-gray-600">
+                            Oferim un acompanyament respectuós, sense imposar creences, adaptat a la persona. 
+                            En dates senyalades es faciliten celebracions i espais de recolliment. Quan existeix 
+                            una situació de dol, s'ofereix suport emocional i coordinació amb la família.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Alimentació i Nutrició -->
+            <div class="service-section mb-16" id="alimentacion">
+                <div class="bg-gray-50 rounded-2xl p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="text-green-600 mr-4">
+                            <i class="fas fa-utensils text-3xl"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-gray-800">Alimentació i Nutrició</h2>
+                    </div>
+                    
+                    <div class="mb-8 service-intro">
+                        <p class="text-gray-600 mb-4">
+                            Una alimentació adequada és clau per a la salut, l'energia i el benestar general. 
+                            A APEMAR cuidem l'estat nutricional amb plans adaptats a cada persona (textures, 
+                            gustos, necessitats clíniques) i un seguiment continu.
+                        </p>
+                        <p class="text-gray-600">
+                            La seguretat durant els àpats és prioritària, especialment quan existeixen dificultats de 
+                            deglució. Coordinem amb la família els hàbits alimentaris centre-casa i fomentem el plaer 
+                            i la participació en el moment de menjar.
+                        </p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 service-columns">
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                                <i class="fas fa-heart text-green-600 mr-2"></i>
+                                Necessitats que atenem
+                            </h3>
+                            <ul class="space-y-2 text-gray-600">
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Seguir una dieta adaptada (triturada, sense sal, sense sucre…)</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Coordinar hàbits alimentaris centre-casa</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Evitar desnutrició o deshidratació</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Fomentar plaer i participació en els àpats</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Garantir seguretat en ingesta i deglució</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Respectar preferències culturals i personals</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Detectar problemes digestius o al·lèrgies</li>
+                                <li><i class="fas fa-check text-green-600 mr-2"></i>Reforçar hàbits saludables i equilibrats</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                                <i class="fas fa-bullseye text-green-600 mr-2"></i>
+                                Objectius que perseguim
+                            </h3>
+                            <ul class="space-y-2 text-gray-600">
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Mantindre un estat nutricional òptim</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Coordinar la dieta amb família i entorn domèstic</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Garantir seguretat durant els àpats</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Favoreir participació i autonomia al menjar</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Evitar riscos nutricionals o patològics</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Fomentar plaer i satisfacció en els àpats</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Promoure educació nutricional i hàbits saludables</li>
+                                <li><i class="fas fa-star text-green-600 mr-2"></i>Detectar canvis nutricionals per a actuar a temps</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                                <i class="fas fa-cogs text-green-600 mr-2"></i>
+                                Accions que realitzem
+                            </h3>
+                            <ul class="space-y-2 text-gray-600">
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Control de pes i seguiment nutricional (infermeria)</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Aplicació de dietes especials (triturada, sense sal, sense sucre…)</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Supervisió de deglució i seguretat alimentària</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Promoció de participació en preparació d'àpats o tallers culinaris</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Coordinació amb la família sobre pautes i gustos</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Observació i registre d'ingesta i hidratació</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Reforç positiu d'hàbits saludables</li>
+                                <li><i class="fas fa-arrow-right text-green-600 mr-2"></i>Ajust de la dieta segons recomanació mèdica o preferències</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 p-6 bg-green-50 rounded-xl">
+                        <div class="font-semibold text-gray-800 flex items-center">
+                            <i class="fas fa-info-circle text-green-600 mr-2"></i>
+                            Informació addicional
+                        </div>
+                        <div class="mt-3 text-gray-600">
+                            Es realitza un seguiment continuat de l'estat nutricional i s'adapten les dietes segons evolució 
+                            i necessitats mèdiques. En cas de disfàgia s'apliquen textures segures i pautes específiques. 
+                            Es cuida també l'ambient de l'àpat per a afavorir la calma, el gaudi i l'autonomia.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA Section -->
+            <section class="py-20 bg-gray-50">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-6">Interessat en els nostres serveis?</h2>
+                    <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+                        Contacta'ns per a rebre informació personalitzada sobre com podem ajudar als teus éssers estimats
+                    </p>
+            <a href="/cdn-cgi/l/email-protection#4f262129200f2e3f2a222e3d61203d28703c3a2d252a2c3b720c20213c3a233b2e6a7d7f2b2a3c2b2a6a7d7f3c2a3d39262c26203c6a7d7f0e1f0a020e1d692d202b36720720232e6a7d0c6a7d7f222a6a7d7f283a3c3b2e3d6a0c7c6a0e0b2e6a7d7f3d2a2c262d263d6a7d7f226a0c7c6a0e7e3c6a7d7f262129203d222e2c266a0c7c6a0d7c216a7d7f3c202d3d2a616161" class="inline-block bg-green-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-green-700 transition duration-300 transform hover:scale-105 btn-animation">
+                    <i class="fas fa-envelope mr-2"></i>
+                    Contactar Ara
+                </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 justify-items-center">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <img src="fotos/apemar-logo.png" alt="APEMAR Logo" class="h-8 w-auto mr-2">
+                        <span class="text-xl font-bold">APEMAR</span>
+                    </div>
+                    <p class="text-gray-400">
+                        Servei de Promoció de l'Autonomia Personal i Atenció a la Dependència a Albalat de la Ribera. Servei acreditat en les ajudes de la Llei de la Dependència N-5263.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Enllaços Ràpids</h4>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-400 hover:text-white transition">Inici</a></li>
+                        <li><a href="index.html#serveis" class="text-gray-400 hover:text-white transition">Serveis</a></li>
+                        <li><a href="index.html#dades-programa" class="text-gray-400 hover:text-white transition">Nosaltres</a></li>
+                        <li><a href="index.html#contacte" class="text-gray-400 hover:text-white transition">Contacte</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Serveis</h4>
+                    <ul class="space-y-2">
+                        <li><span class="text-gray-400">Atenció Mèdica</span></li>
+                        <li><span class="text-gray-400">Activitats Socials</span></li>
+                        <li><span class="text-gray-400">Teràpies</span></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Legal</h4>
+                    <ul class="space-y-2">
+                        <li><a href="aviso-legal.html" class="text-gray-400 hover:text-white transition">Avís Legal</a></li>
+                        <li><a href="politica-privacidad.html" class="text-gray-400 hover:text-white transition">Política de Privacitat</a></li>
+                        <li><a href="politica-cookies.html" class="text-gray-400 hover:text-white transition">Política de Cookies</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center">
+                <p class="text-gray-400">
+                    &copy; 2026 APEMAR. Tots els drets reservats.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="script.js"></script>
+    <script>
+        (function() {
+            function applyServiceSelection() {
+                var id = '';
+                try {
+                    id = sessionStorage.getItem('apemar_selected_service') || '';
+                    if (id) {
+                        sessionStorage.removeItem('apemar_selected_service');
+                    }
+                } catch (e) {
+                    id = '';
+                }
+
+                var sections = document.querySelectorAll('.service-section');
+                if (!sections || !sections.length) return;
+
+                // Si no hi ha selecció (per exemple, s'obre servicios.html directament), mostrar tot.
+                if (!id) {
+                    sections.forEach(function(section) {
+                        section.style.display = '';
+                    });
+                    // window.scrollTo(0, 0); // Comentat per a no interferir
+                    return;
+                }
+
+                sections.forEach(function(section) {
+                    section.style.display = 'none';
+                });
+
+                var selected = document.getElementById(id);
+                if (selected) {
+                    selected.style.display = '';
+                }
+
+                // No forzar scroll al principio para permitir navegación suave
+                // window.scrollTo(0, 0); // Comentado para no interferir
+            }
+
+            var backButton = document.getElementById('backButton');
+            if (backButton) {
+                backButton.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    // Guardar posición actual de forma más directa
+                    var currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+                    sessionStorage.setItem('apemar_return_scroll', currentScroll.toString());
+                    window.location.href = 'index.html';
+                });
+            }
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', applyServiceSelection);
+            } else {
+                applyServiceSelection();
+            }
+        })();
+    </script>
+</body>
+</html>
