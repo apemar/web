@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Evitem que rastregen carpetes innecessàries si hi haguera
+Disallow: /fotos/
+Allow: /fotos/*.webp
+
+Sitemap: https://www.apemar-albalat.org/sitemap.xml
